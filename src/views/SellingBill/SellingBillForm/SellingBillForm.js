@@ -2,12 +2,27 @@ import React from "react";
 // react-redux components
 import { connect } from 'react-redux';
 import { fetchProducts, fetchCategories, reset } from './SellingBillFormActions';
-import { fetchCategorySelectList } from '../../Category/CategoryForm/CategoryFormActions';
 // react-router-doom components
 import { generatePath } from "react-router";
 
 // core components
-//import SellingBillFormView from "./SellingBillFormView.jsx";
+import SellingBillFormView from "./SellingBillFormView.jsx";
+
+//
+import { makeStyles } from "@material-ui/core/styles";
+import MaterialTable from 'material-table';
+import Grid from '@material-ui/core/Grid';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import SaveIcon from '@material-ui/icons/Save';
+import Chip from '@material-ui/core/Chip';
+//
 
 
 class SellingBillForm extends React.Component {
@@ -24,8 +39,9 @@ class SellingBillForm extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.state);
-    this.props.fetchProducts(1,1,'','');
+    let { productListCurrentPage, productListPerPage } = this.props;
+    let { keyword, category } = this.state;
+    this.props.fetchProducts(productListCurrentPage, productListPerPage, keyword, category);
     this.props.fetchCategories(this.props.match.params.id);
 
     // if (this.props.match.params.id != 'add') {
@@ -38,12 +54,18 @@ class SellingBillForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log("NEXT PROPS", nextProps);
     this.setState({
       products: nextProps.products,
       categories: nextProps.categories,
       fetchProducts: (page, perPage, keyword, category) => nextProps.fetchProducts(page, perPage, keyword, category),
       addProduct: (id, data) => nextProps.addProduct(id, data),
       reset: () => nextProps.reset(),
+      sellingBillDetail: nextProps.sellingBillDetail,
+      productListCurrentPage: nextProps.productListCurrentPage,
+      productListTotalRows: nextProps.productListTotalRows,
+      productListPerPage: nextProps.productListPerPage,
+      step: nextProps.step,
     });
   }
 
@@ -127,38 +149,21 @@ class SellingBillForm extends React.Component {
     if (this.props.error) {
       alert(this.props.error);
     }
-    const tableOption = {
-      actionsColumnIndex: 100,
-      headerStyle: {
-        textAlign: 'left'
-      },
-      actionsCellStyle: {
-        width: 'fit-content'
-      }
-    }
+
     return (
-      // <ProductFormView
-      //   fetched={this.state.fetched}
-      //   product={this.state.product}
-      //   deleteImages={this.state.deleteImages}
-      //   categorySelectList={this.props.categorySelectList}
-      //   handleSubmit={e => this.handleSubmit(e)}
-      //   handleInputChange={e => this.handleInputChange(e)}
-      //   handleCategorySelectChange={e => this.handleCategorySelectChange(e)}
-      //   handleImagesChange={this.handleImagesChange}
-      //   handleImageRestoreClick={this.handleImageRestoreClick}
-      //   handleImageDeleteClick={this.handleImageDeleteClick}
-      // />
-      <div>
-      </div>
+      <SellingBillFormView
+        categories={this.state.categories}
+        products={this.state.products}
+      />
     );
   }
 }
 
 
 const mapState = state => ({
-  sellingBillDetail: state.sellingBillForm.sellingBillDetail, //[{product_id: , quantity: }]
+  sellingBillDetail: state.sellingBillForm.sellingBillDetail,
   categories: state.sellingBillForm.categories,
+  products: state.sellingBillForm.products,
   productListCurrentPage: state.sellingBillForm.productListCurrentPage,
   productListTotalRows: state.sellingBillForm.productListTotalRows,
   productListPerPage: state.sellingBillForm.productListPerPage,

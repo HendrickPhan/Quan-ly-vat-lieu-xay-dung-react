@@ -13,9 +13,9 @@ if(JSON.parse(localStorage.getItem('user_info'))) {
 }
 
 
-const fetchProductsSuccess = product => ({
+const fetchProductsSuccess = products => ({
   type: FETCH_SELLING_BILL_PRODUCTS_SUCCESS,
-  product
+  products
 });
 
 const fetchProductsFailure = error => ({
@@ -46,9 +46,9 @@ export const reset = () => {
 export const fetchProducts = (page, perPage, keyword=null, category=null) => {
   return dispatch => {
     return _getProducts(page, perPage, keyword, category)
-      .then(product => {
-        dispatch(fetchProductsSuccess(product));
-        return product;
+      .then(products => {
+        dispatch(fetchProductsSuccess(products));
+        return products;
       })
       .catch(error =>
         dispatch(fetchProductsFailure(error))
