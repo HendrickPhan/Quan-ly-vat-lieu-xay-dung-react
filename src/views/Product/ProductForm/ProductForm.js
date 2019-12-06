@@ -143,9 +143,9 @@ class ProductForm extends React.Component {
         handleSubmit={e => this.handleSubmit(e)}
         handleInputChange={e => this.handleInputChange(e)}
         handleCategorySelectChange={e => this.handleCategorySelectChange(e)}
-        handleImagesChange={this.handleImagesChange}
-        handleImageRestoreClick={this.handleImageRestoreClick}
-        handleImageDeleteClick={this.handleImageDeleteClick}
+        handleImagesChange={e => this.handleImagesChange(e)}
+        handleImageRestoreClick={e => this.handleImageRestoreClick(e)}
+        handleImageDeleteClick={e => this.handleImageDeleteClick(e)}
       />
     );
   }

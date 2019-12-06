@@ -1,15 +1,12 @@
 import React from "react";
 // react-redux components
 import { connect } from 'react-redux';
-import { fetchProducts, fetchCategories, reset } from './SellingBillFormActions';
+import { fetchProducts, fetchCategories, reset } from './SellingBillAction';
 // react-router-doom components
 import { generatePath } from "react-router";
 
 // core components
-import SellingBillFormView from "./SellingBillFormView.jsx";
-import SellingBillStep1 from "../step1/Step1View";
-import SellingBillStep2 from "../step2/Step2View";
-import SellingBillStep3 from "../step3/Step3View";
+import SellingBillFormView from "./step1/Step1View";
 
 //
 import { makeStyles } from "@material-ui/core/styles";
@@ -153,7 +150,7 @@ class SellingBillForm extends React.Component {
     }
 
     return (
-      <SellingBillStep1
+      <SellingBillFormView
         categories={this.state.categories}
         products={this.state.products}
       />

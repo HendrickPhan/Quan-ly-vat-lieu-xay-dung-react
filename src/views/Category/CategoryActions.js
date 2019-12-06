@@ -6,6 +6,10 @@ export const FETCH_CATEGORIES_FAILURE = 'FETCH_CATEGORIES_FAILURE';
 export const CHANGE_PER_PAGE = 'CHANGE_PER_PAGE';
 export const DELETE_CATEGORY = 'DELETE_CATEGORY';
 
+var token = "";
+if(JSON.parse(localStorage.getItem('user_info'))) {
+  token = "Bearer " + JSON.parse(localStorage.getItem('user_info')).token;
+}
 export const fetchCategoriesBegin = () => ({
   type: FETCH_CATEGORIES_BEGIN
 });
@@ -68,7 +72,7 @@ const _deleteCategory = (id) => {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU3MzQ0NzE0NSwiZXhwIjozNjE1NzM0NDcxNDUsIm5iZiI6MTU3MzQ0NzE0NSwianRpIjoiNnNlSHJGSjNHeXp3QzVLVyIsInN1YiI6MSwicHJ2IjoiZjkzMDdlYjVmMjljNzJhOTBkYmFhZWYwZTI2ZjAyNjJlZGU4NmY1NSJ9.IDR5-rQKJ0hRYRo2UNBtQe8AQras7CJzjgadsnzQ4HU'
+      'Authorization': token
     },
   };
 
@@ -84,7 +88,7 @@ const _getCategories = (page, perPage) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU3MzQ0NzE0NSwiZXhwIjozNjE1NzM0NDcxNDUsIm5iZiI6MTU3MzQ0NzE0NSwianRpIjoiNnNlSHJGSjNHeXp3QzVLVyIsInN1YiI6MSwicHJ2IjoiZjkzMDdlYjVmMjljNzJhOTBkYmFhZWYwZTI2ZjAyNjJlZGU4NmY1NSJ9.IDR5-rQKJ0hRYRo2UNBtQe8AQras7CJzjgadsnzQ4HU'
+      'Authorization': token
     },
   };
 
@@ -99,6 +103,7 @@ const handleResponse = (response) => {
   return response.text().then(text => {
     const data = text && JSON.parse(text);
     if (!response.ok) {
+      console.log(token);
       const error = (data && data.message) || response.statusText;
       return Promise.reject(error);
     }

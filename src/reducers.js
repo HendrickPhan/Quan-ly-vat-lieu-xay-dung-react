@@ -13,7 +13,7 @@ import VendorReducer from './views/Vendor/VendorReducer';
 import VendorFormReducer from './views/Vendor/VendorForm/VendorFormReducer';
 import UserReducer from './views/User/UserReducer';
 import UserFormReducer from './views/User/UserForm/UserFormReducer';
-import SellingBillFormReducer from './views/SellingBill/SellingBillForm/SellingBillFormReducer';
+import SellingBillFormReducer from './views/SellingBill/SellingBillReducer';
 
 export default combineReducers({
     login: LoginReducer,

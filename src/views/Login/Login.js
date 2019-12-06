@@ -79,4 +79,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapState, mapDispatchToProps)(Login);
+export default connect(mapState, mapDispatchToProps)(Login);  //login -> xuat ra component login

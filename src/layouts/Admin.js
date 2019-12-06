@@ -13,7 +13,11 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 import Snackbar from "components/Snackbar/Snackbar.js";
 // import routes from "routes.js";
 import AgencyManagerRoutes from "routes/AgencyManagerRoutes.js";
+import ManagerRoutes from "routes/ManagerRoutes.js";
 import AdminRoutes from "routes/AdminRoutes.js";
+import AssistantRoutes from "routes/AssistantRoutes.js";
+import BussinessStaffRoutes from "routes/BusinessStaffRoutes.js";
+import WarehouseStaffRoutes from "routes/WarehouseStaffRoutes.js";
 
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
@@ -33,11 +37,20 @@ export default function Admin({ ...rest }) {
       case 0:
         routes = AdminRoutes;
         break;
+      case 1:
+        routes = ManagerRoutes;
+        break;
+      case 2:
+        routes = AssistantRoutes;
+        break;
       case 3:
         routes = AgencyManagerRoutes;
         break;
-      case 2:
-        routes = AdminRoutes;
+      case 4:
+        routes = BussinessStaffRoutes;
+        break;
+      case 5:
+        routes = WarehouseStaffRoutes;
         break;
     }
   }

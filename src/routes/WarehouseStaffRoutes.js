@@ -50,25 +50,6 @@ const dashboardRoutes = [
     component: DashboardPage,
     layout: "/admin"
   },
-  {
-    path: "/customer",
-    name: "Khách Hàng",
-    icon: "content_paste",
-    component: Customer,
-    layout: "/admin",
-    display: true,
-    exact: true
-  },
-  {
-    path: "/customer/:id",
-    name: "Form Khách Hàng",
-    icon: "content_paste",
-    component: CustomerForm,
-    layout: "/admin",
-    display: false,
-    exact: false
-  },
-  
 ];
 
 export default dashboardRoutes;

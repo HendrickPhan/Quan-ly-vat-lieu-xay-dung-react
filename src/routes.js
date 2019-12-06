@@ -26,19 +26,14 @@ import Unarchive from "@material-ui/icons/Unarchive";
 import Language from "@material-ui/icons/Language";
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
-
 import Category from "views/Category/Category.js";
 import CategoryForm from "views/Category/CategoryForm/CategoryForm.js";
-
 import Product from "views/Product/Product.js"
 import ProductForm from "views/Product/ProductForm/ProductForm.js"
-
 import Agency from "views/Agency/Agency.js"
 import AgencyForm from "views/Agency/AgencyForm/AgencyForm.js"
-
 import Customer from 'views/Customer/Customer.js';
 import CustomerForm from 'views/Customer/CustomerForm/CustomerForm.js';
-
 import Vendor from 'views/Vendor/Vendor.js';
 import VendorForm from 'views/Vendor/VendorForm/VendorForm.js';
 // core components/views for RTL layout

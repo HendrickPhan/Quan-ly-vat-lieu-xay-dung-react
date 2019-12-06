@@ -17,6 +17,7 @@
 */
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
+import UserIcon from "@material-ui/icons/Person";
 
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
@@ -39,6 +40,8 @@ import VendorForm from 'views/Vendor/VendorForm/VendorForm.js';
 import User from 'views/User/User.js';
 import UserForm from 'views/User/UserForm/UserForm.js';
 
+
+import SellingBill from 'views/SellingBill/SellingBill'; 
 import SellingBillForm from 'views/SellingBill/SellingBillForm/SellingBillForm.js';
 
 const dashboardRoutes = [
@@ -166,13 +169,15 @@ const dashboardRoutes = [
     display: false,
     exact: false
   },
-  // {
-  //   path: "/angency",
-  //   name: "Đại Lý",
-  //   icon: "content_paste",
-  //   component: TableList,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/selling-bill",
+    name: "Hóa đơn bán hàng",
+    icon: "content_paste",
+    component: SellingBill,
+    layout: "/admin",
+    display: true,
+    exact: true
+  },
   
 ];
 

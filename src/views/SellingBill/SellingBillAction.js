@@ -1,4 +1,4 @@
-import { displayMessage } from '../../../components/Snackbar/SnackbarActions.js';
+import { displayMessage } from '../../components/Snackbar/SnackbarActions.js';
 
 export const FETCH_SELLING_BILL_PRODUCTS_SUCCESS = 'FETCH_SELLING_BILL_PRODUCTS_SUCCESS';
 export const FETCH_SELLING_BILL_PRODUCTS_FAILURE = 'FETCH_SELLING_BILL_PRODUCTS_FAILURE';

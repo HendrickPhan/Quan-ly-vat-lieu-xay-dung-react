@@ -13,7 +13,6 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import SaveIcon from '@material-ui/icons/Save';
 import Chip from '@material-ui/core/Chip';
-
 import Snackbar from "../../../components/Snackbar/Snackbar.js";
 import ImageList from "../../../components/ImageList/ImageList.js";
 // react-redux components
@@ -120,11 +119,9 @@ export default function ProductFormView(props) {
                                     <em>None</em>
                                 </MenuItem>
                                 {props.categorySelectList.map(prop => {
-                                    if (prop.id !== props.product.id) {
-                                        return (
-                                            <MenuItem value={prop.id} key={prop.id} >{prop.name}</MenuItem>
-                                        )
-                                    }
+                                    return (
+                                        <MenuItem value={prop.id} key={prop.id} >{prop.name}</MenuItem>
+                                    )
                                 })}
                             </Select>
                         </FormControl>

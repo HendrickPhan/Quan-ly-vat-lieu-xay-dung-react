@@ -69,7 +69,7 @@ export default function VendorView(props) {
                         { title: 'Số tiền đang nợ', field: 'in_debt_amount', cellStyle: { textAlign: 'left' } },
                     ]}
                     data={props.vendors}
-                    title="Đại Lý"
+                    title="Nhà cung cấp"
                     actions={[
                         {
                             icon: 'edit',
