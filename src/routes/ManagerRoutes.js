@@ -40,7 +40,6 @@ import VendorForm from 'views/Vendor/VendorForm/VendorForm.js';
 import User from 'views/User/User.js';
 import UserForm from 'views/User/UserForm/UserForm.js';
 
-import SellingBillForm from 'views/SellingBill/SellingBillForm/SellingBillForm.js';
 
 const dashboardRoutes = [
   {

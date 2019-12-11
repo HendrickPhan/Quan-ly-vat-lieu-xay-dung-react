@@ -67,19 +67,19 @@ export default function Step1View(props) {
                         <Select
                             labelid="categories-select-label"
                             id="categories-select"
-                            value=""
-                            // value={this.props.categories.map(category => category.id)}
+                            //value=""
+                            value={props.currentCategory ? props.currentCategory.id: 1}
                             name="categories"
-                            // onChange={props.handleCategorySelectChange}
+                            onChange={props.handleCategorySelectChange}
                             fullWidth
                         >
                             <MenuItem value={null}>
                                 <em>None</em>
                             </MenuItem>
-                            {props.categories.map(prop => {
+                            {props.categories.map(category => {
                                 // if (prop.id !== props.product.id) {
                                 return (
-                                    <MenuItem value={prop.id} key={prop.id} >{prop.name}</MenuItem>
+                                    <MenuItem value={category.id} key={category.id} >{category.name}</MenuItem>
                                 )
                                 // }
                             })}
@@ -90,11 +90,11 @@ export default function Step1View(props) {
                         <TextField
                             required
                             id="name"
-                            name="name"
+                            name="keyword"
                             label="Tên sản phẩm"
                             fullWidth
-                            value={props.keyword ? props.keyword : ''}
-                        // onChange={(e) => props.handleInputChange(e)}
+                            value={props.keyword !== null ? props.keyword : ''}
+                            onChange={(e) => props.handleKeywordChange(e)}
                         />
                     </Grid>
                     <Grid item xs={6} sm={6}>
@@ -158,11 +158,17 @@ export default function Step1View(props) {
                                         name="quantity"
                                         label="Số lượng"
                                         type="number"
-                                        value={product.quantity ? product.quantity : 0}
-                                        onChange={(value, product) => props.handleQuantityChange(value, product)}
+                                        inputProps={{ min: "0", max: "8888"}}
+                                        value={(product.quantity !== undefined) ? product.quantity : 0}
+                                        onChange={(value) => props.handleQuantityChange(value, product)}
                                     />
-                                    <Button size="small" variant="contained" color="primary">
-                                        Thêm vào hóa đơn
+                                    <Button 
+                                        size="small" 
+                                        variant="contained" 
+                                        color="primary"
+                                        onClick={(e) => props.handleAddProduct(e, product)}
+                                    >
+                                        Thêm sản phẩm
                                     </Button>
                                 </CardActions>
                             </Card>
@@ -174,7 +180,12 @@ export default function Step1View(props) {
             <AppBar position="fixed" className={classes.appBar} color="default">
                 <Toolbar>
                     Tổng Số lượng: 10
-                    <Button size="small" variant="contained" color="primary" className={classes.nextBtn}>
+                    <Button 
+                        size="small" 
+                        variant="contained" 
+                        color="primary"
+                        onClick = { (e) => props.moveNextStep(e) }  
+                        className={classes.nextBtn}>
                         Tiếp tục
                     </Button>
                 </Toolbar>

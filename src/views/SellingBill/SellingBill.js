@@ -1,12 +1,14 @@
 import React from "react";
 // react-redux components
 import { connect } from 'react-redux';
-import { fetchProducts, fetchCategories, reset } from './SellingBillAction';
+import { fetchProducts, fetchCategories, fetchCustomers, reset, addSellingBill } from './SellingBillAction';
 // react-router-doom components
 import { generatePath } from "react-router";
 
 // core components
-import SellingBillFormView from "./step1/Step1View";
+import SellingBillStep1 from "./step1/Step1View";
+import SellingBillStep2 from "./step2/Step2View";
+import SellingBillStep3 from "./step3/Step3View";
 
 //
 import { makeStyles } from "@material-ui/core/styles";
@@ -22,6 +24,7 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import SaveIcon from '@material-ui/icons/Save';
 import Chip from '@material-ui/core/Chip';
+//import SellingBillFormView from "./SellingBillForm/SellingBillFormView";
 //
 
 
@@ -32,9 +35,15 @@ class SellingBillForm extends React.Component {
 
     this.state = {
       products: props.products,
+      sellingBillDetail: props.sellingBillDetail,
       categories: props.categories,
+      customers: props.customers,
+      totalBill: props.totalBill,
+      totalPaid: props.totalPaid,
       keyword: null,
       category: null,
+      currentCustomer: props.currentCustomer,
+      currentCategory: props.currentCategory
     };
   }
 
@@ -43,51 +52,53 @@ class SellingBillForm extends React.Component {
     let { keyword, category } = this.state;
     this.props.fetchProducts(productListCurrentPage, productListPerPage, keyword, category);
     this.props.fetchCategories(this.props.match.params.id);
-
-    // if (this.props.match.params.id != 'add') {
-    //   this.props.fetchProduct(this.props.match.params.id);
-    // }
-    // else {
-    //   this.props.reset();
-    // }
-    // this.props.fetchCategorySelectList();
+    this.props.fetchCustomers(this.props.match.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       products: nextProps.products,
-      categories: nextProps.categories,
-      fetchProducts: (page, perPage, keyword, category) => nextProps.fetchProducts(page, perPage, keyword, category),
-      addProduct: (id, data) => nextProps.addProduct(id, data),
-      reset: () => nextProps.reset(),
       sellingBillDetail: nextProps.sellingBillDetail,
+      categories: nextProps.categories,
+      currentCategory: nextProps.currentCategory,
+      currentCustomer: nextProps.currentCustomer,
+      customers: nextProps.customers,
+      totalBill: nextProps.totalBill,
+      totalPaid: nextProps.totalPaid,
+      fetchProducts: (page, perPage, keyword, category) => nextProps.fetchProducts(page, perPage, keyword, category),
+      addSellingBill: (data) => nextProps.addSellingBill(data),
+      reset: () => nextProps.reset(),
       productListCurrentPage: nextProps.productListCurrentPage,
       productListTotalRows: nextProps.productListTotalRows,
       productListPerPage: nextProps.productListPerPage,
       step: nextProps.step,
     });
+    console.log('customer:', nextProps.customers);
   }
 
   //------------------- event functions 
   handleSubmit(e) {
     e.preventDefault();
-    let data = (({ name, price, unit, images }) => ({ name, price, unit, images }))(this.state.product);
-    let categories = this.state.product.categories.map(category => category.id);
-    data.categories = categories;
-    if (this.state.product.id) {
-      data.deleteImages = this.state.deleteImages;
-      this.state.editProduct(this.state.product.id, data);
-    }
-    else {
-      const { history } = this.props;
-      this.state.addProduct(data).then(product => {
-        history.push({
-          pathname: generatePath(this.props.match.path, { id: product.id })
-        });
-        this.props.fetchProduct(product.id);
+    let data = [];
+    data.details =this.createDetailList();
+    data.total_paid = this.state.totalPaid;
+    data.customer_id = this.state.currentCustomer.id;
+    console.log('customer' ,this.state.currentCustomer);
+    this.props.addSellingBill(data);
+  }
 
-      });
-    }
+  createDetailList(){
+    let result = [];
+  
+    this.state.sellingBillDetail.forEach(function(simpleProduct, index) {
+      let productDetail = [];
+      productDetail.product_id = simpleProduct.id;
+      productDetail.quantity = simpleProduct.quantity;
+
+      result.push(productDetail);
+    });
+
+    return result;
   }
 
   handleInputChange = e => {
@@ -98,7 +109,46 @@ class SellingBillForm extends React.Component {
         [name]: value
       }
     }));
+  }
 
+  handleKeywordChange(e) {
+    const { name, value } = e.target;
+    this.setState({keyword: value});
+  }
+
+  handleCustomerChange(e, value){
+    console.log('value', value);
+    this.setState({currentCustomer: value});
+    console.log('current customer', this.state.currentCustomer);
+  }
+
+  handleQuantityChange = (quantity, product) => {
+      let productList = this.props.products;
+      this.state.products.forEach(function(simpleProduct, index) {
+            if(simpleProduct.id === product.id){
+                productList[index].quantity = quantity.target.value;                  
+            }
+      });
+
+      this.setState({products: productList})
+  }
+
+  handleAddProduct = (e, product) => {
+    let newProduct = product;
+    this.props.sellingBillDetail.push(newProduct);
+  }
+
+  handleRemoveProduct = (e, product) => {
+    let index = -1;
+    //console.log('product', product.id);
+    this.props.sellingBillDetail.forEach( (sellingBill, i) => {
+      console.log(sellingBill.id);
+      if(sellingBill.id == product.id)
+        index = i;
+    });
+
+    this.props.sellingBillDetail.splice(index, 1);
+    this.forceUpdate();
   }
 
   handleCategorySelectChange = e => {
@@ -142,19 +192,113 @@ class SellingBillForm extends React.Component {
       console.log(this.state);
     });
   }
-  //
 
+  handleTotalPaidChange = (value) => {
+    this.setState({totalPaid: value.target.value});
+  }
+
+  moveNextStep(e){
+    switch(this.state.step)
+    {
+      case 1: 
+        if(this.state.sellingBillDetail.length > 0){
+          let nextStep = this.state.step + 1;
+          this.setState({step: nextStep});
+          this.calTotalBill();
+        }
+        break;
+      case 2:
+        if(this.state.currentCustomer){
+          let nextStep = this.state.step + 1;
+          this.setState({step: nextStep});
+          this.calTotalBill();
+        }
+        break;
+    }
+  }
+  movePrevStep(e){
+      let prevStep = this.state.step - 1;
+      this.setState({step: prevStep});
+  }
+  
+  calVAT(value){
+    return value * 0.1;
+  }
+
+  calTotalBill(){
+    let total = 0
+    this.state.sellingBillDetail.forEach(function(simpleProduct, index) {
+      let totalProduct = simpleProduct.price * simpleProduct.quantity;
+      total += totalProduct; 
+      // this.state.totalBill += totalProduct;
+    });
+    // console.log('VAT', this.calVAT(total));
+    // total += this.calVAT(total);
+    this.setState({totalBill: total});
+    return 1000;
+  }
+
+  //
   render() {
     if (this.props.error) {
       alert(this.props.error);
-    }
-
-    return (
-      <SellingBillFormView
-        categories={this.state.categories}
-        products={this.state.products}
-      />
-    );
+    }   
+    switch(this.state.step){
+      case 2:
+        return (
+          <SellingBillStep2
+            categories={this.state.categories}
+            products={this.state.products}
+            customers = { this.state.customers }
+            totalBill = { this.state.totalBill }
+            sellingBillDetail = { this.state.sellingBillDetail }
+            handleQuantityChange={(e, product)=>this.handleQuantityChange(e, product)}
+            handleAddProduct={(e, product) => this.handleAddProduct(e, product)}
+            handleCustomerChange = { (e, customer) => this.handleCustomerChange(e, customer)}
+            handleRemoveProduct={(e, product) => this.handleRemoveProduct(e, product)}
+            moveNextStep = { (e) => this.moveNextStep(e) }
+            movePrevStep = { (e) => this.movePrevStep(e) }
+            calTotalBill = { () =>this.calTotalBill()}
+          />
+        )
+        break;
+      case 3:
+        return (
+          <SellingBillStep3
+            categories={this.state.categories}
+            products={this.state.products}
+            totalBill = { this.state.totalBill }
+            totalPaid = { this.state.totalPaid }
+            customers = { this.state.customers }
+            sellingBillDetail = { this.state.sellingBillDetail }
+            handleQuantityChange={(e, product)=>this.handleQuantityChange(e, product)}
+            handleTotalPaidChange={(e)=>this.handleTotalPaidChange(e)}
+            handleAddProduct={(e, product) => this.handleAddProduct(e, product)}
+            moveNextStep = { (e) => this.moveNextStep(e) }
+            movePrevStep = { (e) => this.movePrevStep(e) }
+            handleSubmit = { (e) => this.handleSubmit(e) }
+            calTotalBill = { (e) =>this.calTotalBill(e) }
+          />
+        )
+        break;
+      default:
+        return (
+          <SellingBillStep1
+            categories={this.state.categories}
+            products={this.state.products}
+            customers = { this.state.customers }
+            currentCategory = { this.state.currentCategory }
+            currentCustomer = { this.state.curretCustomer }
+            sellingBillDetail = { this.state.sellingBillDetail }
+            handleQuantityChange={(e, product)=>this.handleQuantityChange(e, product)}
+            handleAddProduct={(e, product) => this.handleAddProduct(e, product)}
+            handleKeywordChange = {(e) => this.handleKeywordChange(e)}
+            moveNextStep = { (e) => this.moveNextStep(e) }
+          />
+        )
+    };
+  
+   
   }
 }
 
@@ -162,7 +306,10 @@ class SellingBillForm extends React.Component {
 const mapState = state => ({
   sellingBillDetail: state.sellingBillForm.sellingBillDetail,
   categories: state.sellingBillForm.categories,
+  customers: state.sellingBillForm.customers,
   products: state.sellingBillForm.products,
+  totalBill: state.sellingBillForm.calTotalBill,
+  totalPaid: state.sellingBillForm.totalPaid,
   productListCurrentPage: state.sellingBillForm.productListCurrentPage,
   productListTotalRows: state.sellingBillForm.productListTotalRows,
   productListPerPage: state.sellingBillForm.productListPerPage,
@@ -173,6 +320,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchProducts: (page, perPage, keyword, category) => dispatch(fetchProducts(page, perPage, keyword, category)),
     fetchCategories: () => dispatch(fetchCategories()),
+    fetchCustomers: () => dispatch(fetchCustomers()),
+    addSellingBill: (data) => dispatch(addSellingBill(data)),
     reset: () => dispatch(reset())
   };
 }

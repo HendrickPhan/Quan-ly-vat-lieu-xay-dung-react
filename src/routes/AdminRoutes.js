@@ -42,7 +42,6 @@ import UserForm from 'views/User/UserForm/UserForm.js';
 
 
 import SellingBill from 'views/SellingBill/SellingBill'; 
-import SellingBillForm from 'views/SellingBill/SellingBillForm/SellingBillForm.js';
 
 const dashboardRoutes = [
   {
@@ -156,15 +155,6 @@ const dashboardRoutes = [
     name: "Form Nhân Viên",
     icon: "content_paste",
     component: UserForm,
-    layout: "/admin",
-    display: false,
-    exact: false
-  },
-  {
-    path: "/selling-bill/:id",
-    name: "Form Nhân Viên",
-    icon: "content_paste",
-    component: SellingBillForm,
     layout: "/admin",
     display: false,
     exact: false
