@@ -53,7 +53,7 @@ export default function CustomerView(props) {
                                 count={props.totalRows ? props.totalRows : 0}
                                 page={props.currentPage - 1}
                                 onChangePage={(e, page) => {
-                                    props.fetchAgencies(page + 1, props.perPage)
+                                    props.fetchCustomers(page + 1, props.perPage)
                                 }}
                                 onChangeRowsPerPage={event => {
                                     props.changePerPage(event.target.value);
