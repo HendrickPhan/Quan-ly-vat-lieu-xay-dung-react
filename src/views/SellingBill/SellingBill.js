@@ -73,7 +73,6 @@ class SellingBillForm extends React.Component {
       productListPerPage: nextProps.productListPerPage,
       step: nextProps.step,
     });
-    console.log('customer:', nextProps.customers);
   }
 
   //------------------- event functions 
@@ -83,7 +82,7 @@ class SellingBillForm extends React.Component {
     data.details =this.createDetailList();
     data.total_paid = this.state.totalPaid;
     data.customer_id = this.state.currentCustomer.id;
-    console.log('customer' ,this.state.currentCustomer);
+    console.log('customer submit' ,this.state.currentCustomer);
     this.props.addSellingBill(data);
   }
 
@@ -117,9 +116,7 @@ class SellingBillForm extends React.Component {
   }
 
   handleCustomerChange(e, value){
-    console.log('value', value);
     this.setState({currentCustomer: value});
-    console.log('current customer', this.state.currentCustomer);
   }
 
   handleQuantityChange = (quantity, product) => {
@@ -136,6 +133,7 @@ class SellingBillForm extends React.Component {
   handleAddProduct = (e, product) => {
     let newProduct = product;
     this.props.sellingBillDetail.push(newProduct);
+    this.forceUpdate();
   }
 
   handleRemoveProduct = (e, product) => {
@@ -250,6 +248,7 @@ class SellingBillForm extends React.Component {
             categories={this.state.categories}
             products={this.state.products}
             customers = { this.state.customers }
+            currentCustomer = { this.state.currentCustomer }
             totalBill = { this.state.totalBill }
             sellingBillDetail = { this.state.sellingBillDetail }
             handleQuantityChange={(e, product)=>this.handleQuantityChange(e, product)}
@@ -265,11 +264,10 @@ class SellingBillForm extends React.Component {
       case 3:
         return (
           <SellingBillStep3
-            categories={this.state.categories}
-            products={this.state.products}
+            products={ this.state.products }
             totalBill = { this.state.totalBill }
             totalPaid = { this.state.totalPaid }
-            customers = { this.state.customers }
+            currentCustomer = { this.state.currentCustomer }
             sellingBillDetail = { this.state.sellingBillDetail }
             handleQuantityChange={(e, product)=>this.handleQuantityChange(e, product)}
             handleTotalPaidChange={(e)=>this.handleTotalPaidChange(e)}
@@ -288,7 +286,7 @@ class SellingBillForm extends React.Component {
             products={this.state.products}
             customers = { this.state.customers }
             currentCategory = { this.state.currentCategory }
-            currentCustomer = { this.state.curretCustomer }
+            currentCustomer = { this.state.currentCustomer }
             sellingBillDetail = { this.state.sellingBillDetail }
             handleQuantityChange={(e, product)=>this.handleQuantityChange(e, product)}
             handleAddProduct={(e, product) => this.handleAddProduct(e, product)}
@@ -307,6 +305,7 @@ const mapState = state => ({
   sellingBillDetail: state.sellingBillForm.sellingBillDetail,
   categories: state.sellingBillForm.categories,
   customers: state.sellingBillForm.customers,
+  currentCustomer: state.sellingBillForm.currentCustomer,
   products: state.sellingBillForm.products,
   totalBill: state.sellingBillForm.calTotalBill,
   totalPaid: state.sellingBillForm.totalPaid,

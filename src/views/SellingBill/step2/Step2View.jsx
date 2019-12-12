@@ -125,10 +125,10 @@ export default function Step2FormView(props) {
                                         />
                                     </CardContent>
                                 </CardActionArea>
-                                <CardActions>
-                                    <Typography variant="body1"  component="p">
+                                <Typography variant="body1"  component="p">
                                         Thành tiền: <b>{product.price * product.id}</b>
-                                    </Typography>
+                                </Typography>
+                                <CardActions>
                                     <Button 
                                         size="small" 
                                         variant="contained" 
@@ -157,7 +157,7 @@ export default function Step2FormView(props) {
                     color="primary"
                     variant="contained"
                     size="small"
-                    className={[classes.right, classes.button]}
+                    className={classes.button}
                     onClick = { (e) => props.movePrevStep(e) }  
                 >
                 Quay lại
@@ -167,7 +167,7 @@ export default function Step2FormView(props) {
                     color="primary"
                     variant="contained"
                     size="small"
-                    className={classes.button}
+                    className={[classes.button, classes.right]}
                     onClick = { (e) => props.moveNextStep(e) }  
                 >
                 Tiếp tục

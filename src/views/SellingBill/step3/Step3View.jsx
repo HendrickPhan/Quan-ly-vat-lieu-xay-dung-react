@@ -71,14 +71,35 @@ const useStyles = makeStyles(theme => ({
     },
     color_red:{
         color: 'red'
+    },
+    right: {
+      float: 'right'
     }
     
 }));
 
 export default function Step3FormView(props) {
-    const classes = useStyles();    
+    const classes = useStyles();
+    console.log('customer view 3', props);    
     return (
       <Paper className={classes.root}>
+        <Grid item xs={12} sm={12}>
+          <InputLabel>Thông tin Khách hàng</InputLabel>
+          <TextField
+              disabled
+              className={ classes.full_size }
+              name="total_paid"
+              label="Tên Khách hàng"              
+             value={(props.currentCustomer) ? props.currentCustomer.name : ''}
+          />
+          <TextField
+              disabled
+              className={ classes.full_size }
+              name="total_paid"
+              label="SDT khách hàng"              
+              value={(props.currentCustomer) ? props.currentCustomer.phone : ''}
+          />
+        </Grid>
         <InputLabel id="categories-select-label">Xác nhận hóa đơn</InputLabel>
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
@@ -148,16 +169,26 @@ export default function Step3FormView(props) {
               value={ props.totalBill - props.totalPaid }
           />
         </Grid>
-          
-        <Button 
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={(e) => props.handleSubmit(e)}
-            type="button">
-            Lập hóa đơn
-
-        </Button>
+        <Grid item xs={12} sm={12}>
+          <Button
+              type="button"
+              color="primary"
+              variant="contained"
+              size="small"
+              className={classes.button}
+              onClick = { (e) => props.movePrevStep(e) }  
+          >
+          Quay lại
+          </Button>
+          <Button 
+              variant="contained"
+              color="primary"
+              className={[classes.button, classes.right]}
+              onClick={(e) => props.handleSubmit(e)}
+              type="button">
+              Lập hóa đơn
+          </Button>
+        </Grid>
       </Paper>
     );
 } 

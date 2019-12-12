@@ -15,8 +15,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import Chip from '@material-ui/core/Chip';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-
-
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Badge from '@material-ui/core/Badge';
+import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -53,11 +56,19 @@ const useStyles = makeStyles(theme => ({
         right: 0
     }
 }));
+const StyledBadge1 = withStyles(theme => ({
+    badge: {
+      right: -3,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+}))(Badge);
+  
 
 
 export default function Step1View(props) {
     const classes = useStyles();
-
+    console.log('props', props.sellingBillDetail);
     return (
         <Paper className={classes.root}>
             <FormControl fullWidth>
@@ -179,7 +190,16 @@ export default function Step1View(props) {
 
             <AppBar position="fixed" className={classes.appBar} color="default">
                 <Toolbar>
-                    Tổng Số lượng: 10
+                    <Box m={1}>
+                        <IconButton aria-label="cart">
+                        <StyledBadge1 
+                            badgeContent = { props.sellingBillDetail !== null ? props.sellingBillDetail.length : 0 } 
+                            color="primary"
+                        >
+                            <ShoppingCartIcon />
+                        </StyledBadge1>
+                        </IconButton>
+                    </Box>
                     <Button 
                         size="small" 
                         variant="contained" 

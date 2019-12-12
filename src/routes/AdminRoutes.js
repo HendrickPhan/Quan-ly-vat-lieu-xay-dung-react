@@ -40,8 +40,9 @@ import VendorForm from 'views/Vendor/VendorForm/VendorForm.js';
 import User from 'views/User/User.js';
 import UserForm from 'views/User/UserForm/UserForm.js';
 
+import SellingBill from 'views/SellingBill/SellingBill';
 
-import SellingBill from 'views/SellingBill/SellingBill'; 
+import ImportBill from 'views/ImportGoodsBill/ImportGoodsBill';  
 
 const dashboardRoutes = [
   {
@@ -164,6 +165,15 @@ const dashboardRoutes = [
     name: "Hóa đơn bán hàng",
     icon: "content_paste",
     component: SellingBill,
+    layout: "/admin",
+    display: true,
+    exact: true
+  },
+  {
+    path: "/import-bill",
+    name: "Hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: ImportBill,
     layout: "/admin",
     display: true,
     exact: true
