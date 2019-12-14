@@ -15,7 +15,8 @@ import UserReducer from './views/User/UserReducer';
 import UserFormReducer from './views/User/UserForm/UserFormReducer';
 import SellingBillFormReducer from './views/SellingBill/SellingBillReducer';
 import ImportBillFormReducer from './views/ImportGoodsBill/ImportGoodsBillReducer';
-
+import SellingBillReducer from './views/SellingBill/SellingList/SellingListReducer';
+import SellingBillDetailReducer from './views/SellingBill/SellingBillDetail/SellingBillDetailReducer';
 export default combineReducers({
     login: LoginReducer,
     snackbar: SnackbarReducer,
@@ -39,6 +40,8 @@ export default combineReducers({
     userForm: UserFormReducer,
 
     sellingBillForm: SellingBillFormReducer,
+    sellingBill: SellingBillReducer,
+    sellingBillDetail: SellingBillDetailReducer,
 
     importBillForm: ImportBillFormReducer
 });

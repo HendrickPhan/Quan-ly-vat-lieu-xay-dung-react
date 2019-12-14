@@ -43,7 +43,6 @@ export default function (state = initialState, action) {
       };
 
     case FETCH_USER_FAILURE:
-      console.log(action.error)
       return {
         ...state,
         error: action.error

@@ -24,22 +24,17 @@ import DashboardPage from "views/Dashboard/Dashboard.js";
 
 import Category from "views/Category/Category.js";
 import CategoryForm from "views/Category/CategoryForm/CategoryForm.js";
-
 import Product from "views/Product/Product.js"
 import ProductForm from "views/Product/ProductForm/ProductForm.js"
-
 import Agency from "views/Agency/Agency.js"
 import AgencyForm from "views/Agency/AgencyForm/AgencyForm.js"
-
 import Customer from 'views/Customer/Customer.js';
 import CustomerForm from 'views/Customer/CustomerForm/CustomerForm.js';
-
 import Vendor from 'views/Vendor/Vendor.js';
 import VendorForm from 'views/Vendor/VendorForm/VendorForm.js';
-
 import User from 'views/User/User.js';
 import UserForm from 'views/User/UserForm/UserForm.js';
-
+import SellingBillList from 'views/SellingBill/SellingList/SellingList'
 
 const dashboardRoutes = [
   {
@@ -48,6 +43,15 @@ const dashboardRoutes = [
     icon: Dashboard,
     component: DashboardPage,
     layout: "/admin"
+  },
+  {
+    path: "/selling-bill",
+    name: "Hóa đơn bán hàng",
+    icon: "content_paste",
+    component: SellingBillList,
+    layout: "/admin",
+    display: true,
+    exact: true
   },
 ];
 

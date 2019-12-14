@@ -41,6 +41,8 @@ import User from 'views/User/User.js';
 import UserForm from 'views/User/UserForm/UserForm.js';
 
 import SellingBill from 'views/SellingBill/SellingBill';
+import SellingBillList from 'views/SellingBill/SellingList/SellingList';
+import SellingBillDetail from 'views/SellingBill/SellingBillDetail/SellingBillDetail.js';
 
 import ImportBill from 'views/ImportGoodsBill/ImportGoodsBill';  
 
@@ -160,11 +162,29 @@ const dashboardRoutes = [
     display: false,
     exact: false
   },
+  // {
+  //   path: "/selling-bill",
+  //   name: "Hóa đơn bán hàng",
+  //   icon: "content_paste",
+  //   component: SellingBill,
+  //   layout: "/admin",
+  //   display: true,
+  //   exact: true
+  // },
   {
     path: "/selling-bill",
     name: "Hóa đơn bán hàng",
     icon: "content_paste",
-    component: SellingBill,
+    component: SellingBillList,
+    layout: "/admin",
+    display: true,
+    exact: true
+  },
+  {
+    path: "/selling-bill/:id",
+    name: "Chi tiết hóa đơn bán hàng",
+    icon: "content_paste",
+    component: SellingBillDetail,
     layout: "/admin",
     display: true,
     exact: true

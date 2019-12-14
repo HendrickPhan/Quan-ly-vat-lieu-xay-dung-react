@@ -1,49 +1,28 @@
 import React from "react";
 // react-redux components
 import { connect } from 'react-redux';
-import { fetchProducts, fetchCategories, fetchCustomers, reset, addSellingBill } from './SellingBillAction';
+import { fetchProducts, fetchCategories, fetchVendors, reset, addImportBill } from './ImportGoodsBillAction';
 // react-router-doom components
 import { generatePath } from "react-router";
 
-// core components
-import SellingBillStep1 from "./step1/Step1View";
-import SellingBillStep2 from "./step2/Step2View";
-import SellingBillStep3 from "./step3/Step3View";
+import ImportBillStep1 from "./Step1/Step1";
+import ImportBillStep2 from "./Step2/Step2";
+import ImportBillStep3 from "./Step3/Step3";
 
-//
-import { makeStyles } from "@material-ui/core/styles";
-import MaterialTable from 'material-table';
-import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
-import SaveIcon from '@material-ui/icons/Save';
-import Chip from '@material-ui/core/Chip';
-//import SellingBillFormView from "./SellingBillForm/SellingBillFormView";
-//
-
-
-class SellingBillForm extends React.Component {
+class ImportBillForm extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
       products: props.products,
-      sellingBillDetail: props.sellingBillDetail,
+      vendors: props.vendors,
+      importBillDetail: props.importBillDetail,
       categories: props.categories,
-      customers: props.customers,
-      totalBill: props.totalBill,
-      totalPaid: props.totalPaid,
       keyword: null,
       category: null,
-      currentCustomer: props.currentCustomer,
-      currentCategory: props.currentCategory
+      currentCategory: props.currentCategory,
+      vendor_id: props.vendor_id
     };
   }
 
@@ -52,21 +31,19 @@ class SellingBillForm extends React.Component {
     let { keyword, category } = this.state;
     this.props.fetchProducts(productListCurrentPage, productListPerPage, keyword, category);
     this.props.fetchCategories(this.props.match.params.id);
-    this.props.fetchCustomers(this.props.match.params.id);
+    this.props.fetchVendors(this.props.match.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       products: nextProps.products,
-      sellingBillDetail: nextProps.sellingBillDetail,
+      importBillDetail: nextProps.importBillDetail,
       categories: nextProps.categories,
+      vendors: nextProps.vendors,
+      vendor_id: nextProps.vendor_id,
       currentCategory: nextProps.currentCategory,
-      currentCustomer: nextProps.currentCustomer,
-      customers: nextProps.customers,
-      totalBill: nextProps.totalBill,
-      totalPaid: nextProps.totalPaid,
       fetchProducts: (page, perPage, keyword, category) => nextProps.fetchProducts(page, perPage, keyword, category),
-      addSellingBill: (data) => nextProps.addSellingBill(data),
+      addImportBill: (data) => nextProps.addImportBill(data),
       reset: () => nextProps.reset(),
       productListCurrentPage: nextProps.productListCurrentPage,
       productListTotalRows: nextProps.productListTotalRows,
@@ -81,18 +58,19 @@ class SellingBillForm extends React.Component {
     let data = [];
     data.details =this.createDetailList();
     data.total_paid = this.state.totalPaid;
-    data.customer_id = this.state.currentCustomer.id;
-    this.props.addSellingBill(data);
+    data.vendor_id = this.state.vendor_id;
+    data.total_paid = this.state.totalBill;
+    console.log('import bill data', data);
+    this.props.addImportBill(data);
   }
 
   createDetailList(){
     let result = [];
   
-    this.state.sellingBillDetail.forEach(function(simpleProduct, index) {
+    this.state.importBillDetail.forEach(function(simpleProduct, index) {
       let productDetail = [];
       productDetail.product_id = simpleProduct.id;
       productDetail.quantity = simpleProduct.quantity;
-
       result.push(productDetail);
     });
 
@@ -114,10 +92,6 @@ class SellingBillForm extends React.Component {
     this.setState({keyword: value});
   }
 
-  handleCustomerChange(e, value){
-    this.setState({currentCustomer: value});
-  }
-
   handleQuantityChange = (quantity, product) => {
       let productList = this.props.products;
       this.state.products.forEach(function(simpleProduct, index) {
@@ -125,26 +99,30 @@ class SellingBillForm extends React.Component {
                 productList[index].quantity = quantity.target.value;                  
             }
       });
-
       this.setState({products: productList})
+  }
+
+  handleVendorChange = (e) => {
+    console.log('target value', e.target.value);
+    this.setState({vendor_id: e.target.value});
   }
 
   handleAddProduct = (e, product) => {
     let newProduct = product;
-    this.props.sellingBillDetail.push(newProduct);
+    this.props.importBillDetail.push(newProduct);
     this.forceUpdate();
   }
 
   handleRemoveProduct = (e, product) => {
     let index = -1;
     //console.log('product', product.id);
-    this.props.sellingBillDetail.forEach( (sellingBill, i) => {
-      console.log(sellingBill.id);
-      if(sellingBill.id == product.id)
+    this.props.importBillDetail.forEach( (importBill, i) => {
+      console.log(importBill.id);
+      if(importBill.id == product.id)
         index = i;
     });
 
-    this.props.sellingBillDetail.splice(index, 1);
+    this.props.importBillDetail.splice(index, 1);
     this.forceUpdate();
   }
 
@@ -198,18 +176,16 @@ class SellingBillForm extends React.Component {
     switch(this.state.step)
     {
       case 1: 
-        if(this.state.sellingBillDetail.length > 0){
+        if(this.state.importBillDetail.length > 0){
           let nextStep = this.state.step + 1;
           this.setState({step: nextStep});
           this.calTotalBill();
         }
         break;
       case 2:
-        if(this.state.currentCustomer){
           let nextStep = this.state.step + 1;
           this.setState({step: nextStep});
           this.calTotalBill();
-        }
         break;
     }
   }
@@ -224,15 +200,15 @@ class SellingBillForm extends React.Component {
 
   calTotalBill(){
     let total = 0
-    this.state.sellingBillDetail.forEach(function(simpleProduct, index) {
+    this.state.importBillDetail.forEach(function(simpleProduct, index) {
       let totalProduct = simpleProduct.price * simpleProduct.quantity;
       total += totalProduct; 
       // this.state.totalBill += totalProduct;
     });
     // console.log('VAT', this.calVAT(total));
     // total += this.calVAT(total);
+    console.log('total', total);
     this.setState({totalBill: total});
-    return 1000;
   }
 
   //
@@ -243,85 +219,86 @@ class SellingBillForm extends React.Component {
     switch(this.state.step){
       case 2:
         return (
-          <SellingBillStep2
+          <ImportBillStep2
             categories={this.state.categories}
             products={this.state.products}
-            customers = { this.state.customers }
-            currentCustomer = { this.state.currentCustomer }
-            totalBill = { this.state.totalBill }
-            sellingBillDetail = { this.state.sellingBillDetail }
+            currentCategory = { this.state.currentCategory }
+            vendors = { this.state.vendors }
+            vendor_id = {this.state.vendor_id}
+            importBillDetail = { this.state.importBillDetail }
             handleQuantityChange={(e, product)=>this.handleQuantityChange(e, product)}
+            handleVendorChange={(e)=>this.handleVendorChange(e)}
             handleAddProduct={(e, product) => this.handleAddProduct(e, product)}
-            handleCustomerChange = { (e, customer) => this.handleCustomerChange(e, customer)}
-            handleRemoveProduct={(e, product) => this.handleRemoveProduct(e, product)}
+            handleKeywordChange = {(e) => this.handleKeywordChange(e)}
             moveNextStep = { (e) => this.moveNextStep(e) }
             movePrevStep = { (e) => this.movePrevStep(e) }
-            calTotalBill = { () =>this.calTotalBill()}
           />
         )
         break;
       case 3:
-        return (
-          <SellingBillStep3
-            products={ this.state.products }
-            totalBill = { this.state.totalBill }
-            totalPaid = { this.state.totalPaid }
-            currentCustomer = { this.state.currentCustomer }
-            sellingBillDetail = { this.state.sellingBillDetail }
-            handleQuantityChange={(e, product)=>this.handleQuantityChange(e, product)}
-            handleTotalPaidChange={(e)=>this.handleTotalPaidChange(e)}
-            handleAddProduct={(e, product) => this.handleAddProduct(e, product)}
-            moveNextStep = { (e) => this.moveNextStep(e) }
-            movePrevStep = { (e) => this.movePrevStep(e) }
-            handleSubmit = { (e) => this.handleSubmit(e) }
-            calTotalBill = { (e) =>this.calTotalBill(e) }
-          />
-        )
+          return (
+            <ImportBillStep3
+              categories={this.state.categories}
+              products={this.state.products}
+              currentCategory = { this.state.currentCategory }
+              vendors = { this.state.vendors }
+              vendor_id = {this.state.vendor_id}
+              importBillDetail = { this.state.importBillDetail }
+              handleQuantityChange={(e, product)=>this.handleQuantityChange(e, product)}
+              handleVendorChange={(e)=>this.handleVendorChange(e)}
+              handleAddProduct={(e, product) => this.handleAddProduct(e, product)}
+              handleKeywordChange = {(e) => this.handleKeywordChange(e)}
+              handleSubmit = {(e) => this.handleSubmit(e)}
+              moveNextStep = { (e) => this.moveNextStep(e) }
+              movePrevStep = { (e) => this.movePrevStep(e) }
+              calTotalBill = { (e) =>this.calTotalBill(e) }
+              totalBill = { this.state.totalBill }
+              totalPaid = { this.state.totalPaid }
+            />
+          )
         break;
       default:
         return (
-          <SellingBillStep1
+          <ImportBillStep1
             categories={this.state.categories}
             products={this.state.products}
-            customers = { this.state.customers }
             currentCategory = { this.state.currentCategory }
-            currentCustomer = { this.state.currentCustomer }
-            sellingBillDetail = { this.state.sellingBillDetail }
+            vendors = { this.state.vendors }
+            importBillDetail = { this.state.importBillDetail }
             handleQuantityChange={(e, product)=>this.handleQuantityChange(e, product)}
+            handleVendorChange={(e, product)=>this.handleVendorChange(e, product)}
             handleAddProduct={(e, product) => this.handleAddProduct(e, product)}
             handleKeywordChange = {(e) => this.handleKeywordChange(e)}
             moveNextStep = { (e) => this.moveNextStep(e) }
           />
         )
     };
-  
-   
   }
 }
 
 
 const mapState = state => ({
-  sellingBillDetail: state.sellingBillForm.sellingBillDetail,
-  categories: state.sellingBillForm.categories,
-  customers: state.sellingBillForm.customers,
-  currentCustomer: state.sellingBillForm.currentCustomer,
-  products: state.sellingBillForm.products,
-  totalBill: state.sellingBillForm.calTotalBill,
-  totalPaid: state.sellingBillForm.totalPaid,
-  productListCurrentPage: state.sellingBillForm.productListCurrentPage,
-  productListTotalRows: state.sellingBillForm.productListTotalRows,
-  productListPerPage: state.sellingBillForm.productListPerPage,
-  step: state.sellingBillForm.step,
+  importBillDetail: state.importBillForm.importBillDetail,
+  categories: state.importBillForm.categories,
+  vendors: state.importBillForm.vendors,
+  customers: state.importBillForm.customers,
+  products: state.importBillForm.products,
+  totalBill: state.importBillForm.calTotalBill,
+  totalPaid: state.importBillForm.totalPaid,
+  productListCurrentPage: state.importBillForm.productListCurrentPage,
+  productListTotalRows: state.importBillForm.productListTotalRows,
+  productListPerPage: state.importBillForm.productListPerPage,
+  step: state.importBillForm.step,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchProducts: (page, perPage, keyword, category) => dispatch(fetchProducts(page, perPage, keyword, category)),
     fetchCategories: () => dispatch(fetchCategories()),
-    fetchCustomers: () => dispatch(fetchCustomers()),
-    addSellingBill: (data) => dispatch(addSellingBill(data)),
+    fetchVendors: () => dispatch(fetchVendors()),
+    addImportBill: (data) => dispatch(addImportBill(data)),
     reset: () => dispatch(reset())
   };
 }
 
-export default connect(mapState, mapDispatchToProps)(SellingBillForm);
+export default connect(mapState, mapDispatchToProps)(ImportBillForm);
