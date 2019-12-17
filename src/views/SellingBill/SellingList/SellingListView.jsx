@@ -16,7 +16,7 @@ import {
     WAREHOUSE_STAFF,
     ADMIN_USER,
     BUSSINESS_STAFF,
-  } from './SellingListAction';
+  } from '../SellingBillAction';
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -24,17 +24,18 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-let userRole = ADMIN_USER;
-if(JSON.parse(localStorage.getItem('user_info'))) {
-  userRole = JSON.parse(localStorage.getItem('user_info')).user.role;
-}
+let userRole = BUSSINESS_STAFF;
+// if(JSON.parse(localStorage.getItem('user_info'))) {
+//   userRole = JSON.parse(localStorage.getItem('user_info')).user.role;
+// }
 let flag = false;
 
 var fixColumn = [
     { title: 'Id', field: 'id', type: 'numeric', cellStyle: { textAlign: 'left' } },
     { title: 'Tên khách hàng', field: 'name', cellStyle: { textAlign: 'left' } },
     { title: 'Ngày lập', field: 'created_at', cellStyle: { textAlign: 'left' } },
-    { title: 'Tổng tiền', field: 'total_amount', cellStyle: { textAlign: 'left' } },    
+    { title: 'Tổng tiền', field: 'total_amount', cellStyle: { textAlign: 'left' } },
+    { title: 'Trạng thái hàng', field: 'status_confirm', cellStyle: { textAlign: 'left' } },    
 ];
 
 
@@ -58,9 +59,9 @@ function createListAction(props){
 
 function createColumn() {
     if(userRole === ADMIN_USER && !flag){
-        fixColumn.push(
-            { title: 'Trạng thái hàng', field: 'status_confirm', cellStyle: { textAlign: 'left' } },
-        );
+        // fixColumn.push(
+        //     { title: 'Trạng thái hàng', field: 'status_confirm', cellStyle: { textAlign: 'left' } },
+        // );
     }
     flag = true;
 }
@@ -69,7 +70,6 @@ function createColumn() {
 export default function SellingBilliew(props) {
     const classes = useStyles();
     createColumn();
-    console.log('user Role', userRole);
     const tableOption = {
         actionsColumnIndex: 100,
         headerStyle: {

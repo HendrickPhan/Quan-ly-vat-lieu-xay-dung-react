@@ -1,9 +1,9 @@
 import { displayMessage } from '../../../components/Snackbar/SnackbarActions.js';
 
-export const FETCH_SELLING_BILL_DETAIL_SUCCESS = 'FETCH_SELLING_BILL_DETAIL_SUCCESS';
-export const FETCH_SELLING_BILL_DETAIL_FAILURE = 'FETCH_SELLING_BILL_DETAIL_FAILURE';
-export const UPDATE_SELLING_BILL_STATUS_SUCCESS = 'UPDATE_SELLING_BILL_STATUS_SUCCESS';
-export const UPDATE_SELLING_BILL_STATUS_FAILURE = 'UPDATE_SELLING_BILL_STATUS_FAILURE';
+export const FETCH_IMPORT_BILL_DETAIL_SUCCESS = 'FETCH_IMPORT_BILL_DETAIL_SUCCESS';
+export const FETCH_IMPORT_BILL_DETAIL_FAILURE = 'FETCH_IMPORT_BILL_DETAIL_FAILURE';
+export const UPDATE_IMPORT_BILL_STATUS_SUCCESS = 'UPDATE_IMPORT_BILL_STATUS_SUCCESS';
+export const UPDATE_IMPORT_BILL_STATUS_FAILURE = 'UPDATE_IMPORT_BILL_STATUS_FAILURE';
 export const RESET_FORM = 'RESET_FORM';
 
 var token = "";
@@ -11,23 +11,23 @@ if(JSON.parse(localStorage.getItem('user_info'))) {
   token = "Bearer " + JSON.parse(localStorage.getItem('user_info')).token;
 }
 
-export const fetchSellingBillDetailSuccess = sellingBillDetail => ({
-  type: FETCH_SELLING_BILL_DETAIL_SUCCESS,
-  sellingBillDetail
+export const fetchImportBillDetailSuccess = importBillDetail => ({
+  type: FETCH_IMPORT_BILL_DETAIL_SUCCESS,
+  importBillDetail
 });
 
-export const fetchSellingBillDetailFailure = error => ({
-  type: FETCH_SELLING_BILL_DETAIL_FAILURE,
+export const fetchImportBillDetailFailure = error => ({
+  type: FETCH_IMPORT_BILL_DETAIL_FAILURE,
   error
 });
 
-export const updateSellingBillStatusSuccess = sellingBillDetail => ({
-  type: UPDATE_SELLING_BILL_STATUS_SUCCESS,
-  sellingBillDetail
+export const updateImportBillStatusSuccess = importBillDetail => ({
+  type: UPDATE_IMPORT_BILL_STATUS_SUCCESS,
+  importBillDetail
 });
 
-export const updateSellingBillStatusFailure = error => ({
-  type: UPDATE_SELLING_BILL_STATUS_FAILURE,
+export const updateImportBillStatusFailure = error => ({
+  type: UPDATE_IMPORT_BILL_STATUS_FAILURE,
   payload: { error }
 });
 
@@ -41,36 +41,36 @@ export const reset = () => {
   }
 }
 
-export const fetchSellingBillDetail = (id) => {
+export const fetchImportBillDetail = (id) => {
   return dispatch => {
-    return _getSellingBillDetail(id)
+    return _getImportBillDetail(id)
       .then(billDetail => {
-        dispatch(fetchSellingBillDetailSuccess(billDetail));
+        dispatch(fetchImportBillDetailSuccess(billDetail));
         return billDetail;
       })
       .catch(error =>
-        dispatch(fetchSellingBillDetailFailure(error))
+        dispatch(fetchImportBillDetailFailure(error))
       );
   };
 }
 
-export const updateSellingBillStatus = (id) => {
+export const updateImportBillStatus = (id) => {
   return dispatch => {
-    return _updateSellingBillStatus(id)
+    return _updateImportBillStatus(id)
       .then(bill => {
-        dispatch(updateSellingBillStatusSuccess(bill));
+        dispatch(updateImportBillStatusSuccess(bill));
         return bill;
       })
       .then(()=>{
         dispatch(displayMessage('Cập nhập thành công', 'success', 3000));
       })
       .catch(error =>
-        dispatch(updateSellingBillStatusFailure(error))
+        dispatch(updateImportBillStatusFailure(error))
       );
   };
 }
 
-const _getSellingBillDetail = (id) => {
+const _getImportBillDetail = (id) => {
   const requestOptions = {
     method: 'GET',
     headers: {
@@ -79,14 +79,14 @@ const _getSellingBillDetail = (id) => {
     },
   };
 
-  return fetch(process.env.REACT_APP_API_URL + `/selling-bill/` + id, requestOptions)
+  return fetch(process.env.REACT_APP_API_URL + `/import-goods-bill/` + id, requestOptions)
     .then(handleResponse)
     .then(bill => {
       return bill;
     });
 }
 
-const _updateSellingBillStatus = (id) => {
+const _updateImportBillStatus = (id) => {
   const requestOptions = {
     method: 'POST',
     headers: {
@@ -95,7 +95,7 @@ const _updateSellingBillStatus = (id) => {
     },
   };
 
-  return fetch(process.env.REACT_APP_API_URL + `/selling-bill/` + id, requestOptions)
+  return fetch(process.env.REACT_APP_API_URL + `/import-goods-bill/` + id, requestOptions)
     .then(handleResponse)
     .then(bill => {
       return bill;

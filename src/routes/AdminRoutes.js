@@ -44,8 +44,9 @@ import SellingBill from 'views/SellingBill/SellingBill';
 import SellingBillList from 'views/SellingBill/SellingList/SellingList';
 import SellingBillDetail from 'views/SellingBill/SellingBillDetail/SellingBillDetail.js';
 
-import ImportBill from 'views/ImportGoodsBill/ImportGoodsBill';  
-
+import AddImportBill from 'views/ImportGoodsBill/ImportGoodsBill';  
+import ListImportBill from 'views/ImportGoodsBill/List/ListImportBill.js'
+ 
 const dashboardRoutes = [
   {
     path: "/dashboard",
@@ -162,15 +163,15 @@ const dashboardRoutes = [
     display: false,
     exact: false
   },
-  // {
-  //   path: "/selling-bill",
-  //   name: "Hóa đơn bán hàng",
-  //   icon: "content_paste",
-  //   component: SellingBill,
-  //   layout: "/admin",
-  //   display: true,
-  //   exact: true
-  // },
+  {
+    path: "/selling-bill/add",
+    name: "Hóa đơn bán hàng",
+    icon: "content_paste",
+    component: SellingBill,
+    layout: "/admin",
+    display: false,
+    exact: true
+  },
   {
     path: "/selling-bill",
     name: "Hóa đơn bán hàng",
@@ -186,14 +187,23 @@ const dashboardRoutes = [
     icon: "content_paste",
     component: SellingBillDetail,
     layout: "/admin",
-    display: true,
+    display: false,
+    exact: true
+  },
+  {
+    path: "/import-bill/add",
+    name: "Hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: AddImportBill,
+    layout: "/admin",
+    display: false,
     exact: true
   },
   {
     path: "/import-bill",
     name: "Hóa đơn nhập hàng",
     icon: "content_paste",
-    component: ImportBill,
+    component: ListImportBill,
     layout: "/admin",
     display: true,
     exact: true

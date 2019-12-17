@@ -5,9 +5,6 @@ export const FETCH_LIST_SELLING_BILL_SUCCESS = 'FETCH_LIST_SELLING_BILL_SUCCESS'
 export const FETCH_LIST_SELLING_BILL_FAILURE = 'FETCH_LIST_SELLING_BILL_FAILURE';
 export const GET_USER_ROLE_SUCCESS = 'GET_USER_ROLE_SUCCESS';
 export const GET_USER_ROLE_FAILURE = 'GET_USER_ROLE__FAILURE';
-export const BUSSINESS_STAFF = 4;
-export const WAREHOUSE_STAFF = 5;
-export const ADMIN_USER = 0;
 export const CHANGE_PER_PAGE = 'CHANGE_PER_PAGE';
 
 var token = "";
@@ -65,7 +62,7 @@ const _getUserRole = () => {
 }
 
 
-export const fetchSellingBills = (page, perPage) => {
+export const  fetchSellingBills = (page, perPage) => {
     return dispatch => {
       return _getSellingBills(page, perPage)
         .then(sellingBills => {

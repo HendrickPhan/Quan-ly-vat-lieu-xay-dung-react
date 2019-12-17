@@ -10,11 +10,16 @@ export const FETCH_SELLING_BILL_CUSTOMERS_FAILURE = 'FETCH_SELLING_BILL_CUSTOMER
 export const ADD_SELLING_BILL_SUCCESS = 'ADD_SELLING_BILL_SUCCESS';
 export const ADD_SELLING_BILL_FAILURE = 'ADD_SELLING_BILL_FAILURE';
 export const RESET_FORM = 'RESET_FORM';
+export const BUSSINESS_STAFF = 4;
+export const WAREHOUSE_STAFF = 5;
+export const ADMIN_USER = 0;
+export var userRole = 0;
 
 
 var token = "";
 if(JSON.parse(localStorage.getItem('user_info'))) {
   token = "Bearer " + JSON.parse(localStorage.getItem('user_info')).token;
+  userRole = JSON.parse(localStorage.getItem('user_info')).user.role;
 }
 const fetchProductsSuccess = products => ({
   type: FETCH_SELLING_BILL_PRODUCTS_SUCCESS,
@@ -202,7 +207,6 @@ const _getCustomers = () => {
       'Authorization': token
     },
   };
-
   return fetch(process.env.REACT_APP_API_URL + `/customer/select-list`, requestOptions)
     .then(handleResponse)
     .then(customerSelectList => {

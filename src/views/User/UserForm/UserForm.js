@@ -26,8 +26,8 @@ class UserForm extends React.Component {
         role:{'id': 0, 'name': 'Admin'},
         agency_id: 0,
         password: '',
+        retype_psw: '',
       },
-      retype_psw: '',
       roles: [
         {
           'id': 0,
@@ -80,7 +80,7 @@ class UserForm extends React.Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    let data = (({ name, address,role, phone, email, password }) => ({ name, address, role, phone, email, password }))(this.state.user);
+    let data = (({ name, address,role, phone, email, password, retype_psw }) => ({ name, address, role, phone, email, password, retype_psw }))(this.state.user);
     
     if(this.state.user.id){
       this.props.editUser(this.state.user.id, data);
@@ -113,7 +113,6 @@ class UserForm extends React.Component {
       fetching: nextProps.fetching,
       fetched: nextProps.fetched,
       user: nextProps.user,
-      retype_psw: nextProps.retype_psw,
       fetchUser: (id) => nextProps.fetchUser(id),
       editUser: (id, data) => nextProps.editUser(id, data),
       addUser: (data) => nextProps.addUser(data),
@@ -170,7 +169,6 @@ const mapState = state => ({
   fetching: state.userForm.fetching,
   fetched: state.userForm.fetched,
   user: state.userForm.user,
-  retype_pws: state.userForm.retype_psw,
   agencies: state.userForm.agencies,
   error: state.userForm.error
 });

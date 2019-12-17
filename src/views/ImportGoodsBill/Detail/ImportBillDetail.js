@@ -2,22 +2,22 @@ import React from "react";
 // react-redux components
 import { connect } from 'react-redux';
 import { Router, Route, Switch, Redirect } from "react-router-dom";
-import { fetchSellingBillDetail, updateSellingBillStatus, reset } from './SellingBillDetailAction';
+import { fetchImportBillDetail, updateImportBillStatus, reset } from './SellingBillDetailAction';
 // react-router-doom components
 import { generatePath } from "react-router";
 
 // core components
-import SellingBillDetailView from "./SellingBillDetailView.jsx";
+import ImportBillDetailView from "./ImportBillDetailView";
 
 
-class SellingBillDetail extends React.Component {
+class ImportBillDetail extends React.Component {
 
   constructor(props) {
     //console.log('this is constructor');
     super(props);
 
     this.state = {
-        sellingBillDetails: props.sellingBillDetails,
+        importBillDetails: props.importBillDetails,
         customerName: props.customerName,
         customerPhone: props.customerPhone,
         totalBill: props.totalBill,
@@ -28,20 +28,20 @@ class SellingBillDetail extends React.Component {
   componentDidMount() {
     console.log(this.props.match.params.id);
     
-    this.props.fetchSellingBillDetail(this.props.match.params.id);
+    this.props.fetchImportBillDetail(this.props.match.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       fetching: nextProps.fetching,
       fetched: nextProps.fetched,
-      sellingBillDetails: nextProps.sellingBillDetails,
+      importBillDetails: nextProps.importBillDetails,
       customerName: nextProps.customerName,
       customerPhone: nextProps.customerPhone,
       totalBill: nextProps.totalBill,
       totalPaid: nextProps.totalPaid,
-      fetchSellingBillDetail: (id) => nextProps.fetchSellingBillDetail(id),
-      updateSellingBillStatus: (id) => nextProps.updateSellingBillStatus(id),
+      fetchImportBillDetail: (id) => nextProps.fetchImportBillDetail(id),
+      updateImportBillStatus: (id) => nextProps.updateImportBillStatus(id),
       reset: () => nextProps.reset(),
       error: nextProps.error
     });
@@ -49,12 +49,12 @@ class SellingBillDetail extends React.Component {
 
   //------------------- event functions 
   handleSubmit(e, id) {
-    this.props.updateSellingBillStatus(id);
+    this.props.updateImportBillStatus(id);
   }
 
   calTotalBill(){
     let total = 0
-    this.state.sellingBillDetail.forEach(function(simpleProduct, index) {
+    this.state.importBillDetail.forEach(function(simpleProduct, index) {
       let totalProduct = simpleProduct.price * simpleProduct.quantity;
       total += totalProduct; 
       // this.state.totalBill += totalProduct;
@@ -82,9 +82,9 @@ class SellingBillDetail extends React.Component {
       }
     }
     return (
-      <SellingBillDetailView
+      <ImportBillDetailView
         fetched={this.state.fetched}
-        sellingBillDetails={this.state.sellingBillDetails}
+        importBillDetails={this.state.importBillDetails}
         customerName={this.state.customerName}
         customerPhone={this.state.customerPhone}
         totalPaid = { this.state.totalPaid }
@@ -98,22 +98,22 @@ class SellingBillDetail extends React.Component {
 
 
 const mapState = state => ({
-  fetching: state.sellingBillDetail.fetching,
-  fetched: state.sellingBillDetail.fetched,
-  sellingBillDetails: state.sellingBillDetail.sellingBillDetails,
-  totalBill: state.sellingBillDetail.totalBill,
-  totalPaid: state.sellingBillDetail.totalPaid,
-  customerName: state.sellingBillDetail.customerName,
-  customerPhone: state.sellingBillDetail.customerPhone,
-  error: state.sellingBillDetail.error,
+  fetching: state.importBillDetail.fetching,
+  fetched: state.importBillDetail.fetched,
+  importBillDetails: state.importBillDetail.importBillDetails,
+  totalBill: state.importBillDetail.totalBill,
+  totalPaid: state.importBillDetail.totalPaid,
+  customerName: state.importBillDetail.customerName,
+  customerPhone: state.importBillDetail.customerPhone,
+  error: state.importBillDetail.error,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchSellingBillDetail: (id) => dispatch(fetchSellingBillDetail(id)),
-    updateSellingBillStatus: (id) => dispatch(updateSellingBillStatus(id)),
+    fetchImportBillDetail: (id) => dispatch(fetchImportBillDetail(id)),
+    updateImportBillStatus: (id) => dispatch(updateImportBillStatus(id)),
     reset: () => dispatch(reset())
   };
 }
 
-export default connect(mapState, mapDispatchToProps)(SellingBillDetail);
+export default connect(mapState, mapDispatchToProps)(ImportBillDetail);

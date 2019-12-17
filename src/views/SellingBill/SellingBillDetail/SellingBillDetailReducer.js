@@ -9,18 +9,27 @@ import {
   
   const initialState = {
     sellingBillDetails: [],
+    customerName: '',
+    customerPhone: '',
     fetching: false,
     fetched: false,
+    totalBill: 0,
+    totalPaid: 0,
   };
   
   export default function (state = initialState, action) {
     switch (action.type) {
       case FETCH_SELLING_BILL_DETAIL_SUCCESS:
+        console.log('selling bill detail', action.sellingBillDetail.selling_bill_detail);
         return {
           ...state,
           fetching: false,
           fetched: true,
-          sellingBillDetails: action.sellingBillDetails
+          sellingBillDetails: action.sellingBillDetail.selling_bill_detail,
+          customerName: action.sellingBillDetail.customer.name,
+          customerPhone: action.sellingBillDetail.customer.phone,
+          totalBill: action.sellingBillDetail.total_amount,
+          totalPaid: action.sellingBillDetail.total_paid
         };
   
       case FETCH_SELLING_BILL_DETAIL_FAILURE:

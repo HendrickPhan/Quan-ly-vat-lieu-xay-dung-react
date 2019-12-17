@@ -28,7 +28,7 @@ class SellingBill extends React.Component {
       sellingBills:props.sellingBills,
       userRole: props.userRole,
     };
-    console.log('props selling-list', props);
+    
   }
 
   componentDidMount() {
@@ -47,7 +47,6 @@ class SellingBill extends React.Component {
       sellingBills: nextProps.sellingBills,
       userRole: nextProps.userRole
     });
-    console.log('next props selling', nextProps);
   }
 
   viewDetailBill(id){
@@ -55,7 +54,10 @@ class SellingBill extends React.Component {
     history.push(this.props.match.path + `/${id}`);
   }
 
-
+  onAddClickHandle(){
+    const { history } = this.props;
+    history.push(this.props.match.path + `/add`);
+  }
 
   render() {
     if (this.props.error) {

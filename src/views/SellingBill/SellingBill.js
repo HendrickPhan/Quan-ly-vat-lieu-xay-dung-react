@@ -130,8 +130,14 @@ class SellingBillForm extends React.Component {
   }
 
   handleAddProduct = (e, product) => {
-    let newProduct = product;
-    this.props.sellingBillDetail.push(newProduct);
+    let flag = false;
+    this.props.sellingBillDetail.forEach(function myFunction(item, index) {
+      if(item.id === product.id){
+        flag = true;
+      }
+    }); 
+    if(!flag)
+      this.props.sellingBillDetail.push(product);
     this.forceUpdate();
   }
 

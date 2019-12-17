@@ -39,7 +39,7 @@ import {
   ADMIN_USER,
   BUSSINESS_STAFF,
   userRole
-} from '../SellingBillAction';
+} from '../../SellingBill/SellingBillAction';
 
 
 
@@ -88,28 +88,28 @@ const billStyles = makeStyles(theme => ({
     
 }));
 
-export default function SellingBillDetailView(props) {
+export default function ImportBillDetailView(props) {
     const classes = billStyles();
-    console.log('this is bill detail', props.sellingBillDetails[0]);
+    //console.log('this is bill detail', props.sellingBillDetails[0]);
     switch(5){
       default:
         return (
           <Paper className={classes.root}>
             <Grid item xs={12} sm={12}>
-              <InputLabel>Thông tin Khách hàng</InputLabel>
+              <InputLabel>Thông tin đối tác</InputLabel>
               <TextField
                     disabled
                     className={ classes.full_size }
                     name="total_paid"
-                    label="Tên Khách hàng"              
-                    value={(props.customerName) ? props.customerName : ''}
+                    label="Tên đối tác"              
+                    value={(props.vendorName) ? props.vendorName : ''}
               />
               <TextField
                   disabled
                   className={ classes.full_size }
                   name="total_paid"
-                  label="SDT khách hàng"              
-                  value={(props.customerPhone) ? props.customerPhone : ''}
+                  label="email đối tác"              
+                  value={(props.vendorEmail) ? props.vendorEmail : ''}
               />
             </Grid>
             <InputLabel id="categories-select-label">Xác nhận hóa đơn</InputLabel>
@@ -125,16 +125,16 @@ export default function SellingBillDetailView(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {props.sellingBillDetails.map(row => (
+                {props.importBillDetails.map(row => (
                   <TableRow key={row.id}>
                     <TableCell component="th" scope="row">
                       {row.id}
                     </TableCell>
-                    <TableCell align="right">{row.product.name}</TableCell>
-                    <TableCell align="right">{row.product.unit}</TableCell>
+                    <TableCell align="right">{row.name}</TableCell>
+                    <TableCell align="right">{row.unit}</TableCell>
                     <TableCell align="right">{row.quantity}</TableCell>
-                    <TableCell align="right">{row.unit_price}</TableCell>
-                    <TableCell align="right">{row.quantity * row.unit_price}</TableCell>
+                    <TableCell align="right">{row.price}</TableCell>
+                    <TableCell align="right">{row.quantity * row.price}</TableCell>
                   </TableRow>
                 ))}
                  {/* <TableRow>
@@ -200,20 +200,20 @@ export default function SellingBillDetailView(props) {
         return (
           <Paper className={classes.root}>
             <Grid item xs={12} sm={12}>
-              <InputLabel>Thông tin Khách hàng</InputLabel>
+              <InputLabel>Thông tin đối tác</InputLabel>
               <TextField
                     disabled
                     className={ classes.full_size }
                     name="total_paid"
                     label="Tên Khách hàng"              
-                    value={(props.customerName) ? props.customerName : ''}
+                    value={(props.vendorName) ? props.vendorName : ''}
               />
               <TextField
                   disabled
                   className={ classes.full_size }
                   name="total_paid"
-                  label="SDT khách hàng"              
-                  value={(props.customerPhone) ? props.customerPhone : ''}
+                  label="email đối tác"              
+                  value={(props.vendorEmail) ? props.vendorEmail : ''}
               />
             </Grid>
             <InputLabel id="categories-select-label">Xác nhận hóa đơn</InputLabel>
@@ -229,16 +229,16 @@ export default function SellingBillDetailView(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {props.sellingBillDetails.map(row => (
+                {props.improtBillDetails.map(row => (
                   <TableRow key={row.id}>
                     <TableCell component="th" scope="row">
                       {row.id}
                     </TableCell>
-                    <TableCell align="right">{row.product.name}</TableCell>
-                    <TableCell align="right">{row.product.unit}</TableCell>
+                    <TableCell align="right">{row.name}</TableCell>
+                    <TableCell align="right">{row.unit}</TableCell>
                     <TableCell align="right">{row.quantity}</TableCell>
-                    <TableCell align="right">{row.unit_price}</TableCell>
-                    <TableCell align="right">{row.quantity * row.unit_price}</TableCell>
+                    <TableCell align="right">{row.price}</TableCell>
+                    <TableCell align="right">{row.quantity * row.price}</TableCell>
                   </TableRow>
                 ))}
                  {/* <TableRow>
@@ -301,7 +301,7 @@ export default function SellingBillDetailView(props) {
                   color="primary"
                   //disabled={props.sellingBillDetails[0].status_confirm}
                   className={[classes.button, classes.right]}
-                  onClick={(e) => props.handleSubmit(e, props.sellingBillDetails[0].selling_bill_id)}
+                  onClick={(e) => props.handleSubmit(e, props.sellingBillDetails[0].import_bill_id)}
                   type="button">
                   Xác nhận
               </Button>
