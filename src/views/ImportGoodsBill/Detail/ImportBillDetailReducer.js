@@ -20,7 +20,7 @@ import {
   export default function (state = initialState, action) {
     switch (action.type) {
       case FETCH_IMPORT_BILL_DETAIL_SUCCESS:
-        console.log('import bill detail', action.importBillDetail[0].vendor_name);
+       
         return {
           ...state,
           fetching: false,
@@ -29,7 +29,7 @@ import {
           vendorName: action.importBillDetail[0].vendor_name,
           vendorEmail: action.importBillDetail[0].vendor_email,
           totalBill: action.importBillDetail[0].IG_total_amount,
-          totalPaid: action.importBillDetail[0].IG_total_paid
+          totalPaid: action.importBillDetail[0].IG_total_paid,
         };
   
       case FETCH_IMPORT_BILL_DETAIL_FAILURE:

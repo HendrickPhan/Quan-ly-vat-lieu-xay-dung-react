@@ -300,7 +300,7 @@ export default function ImportBillDetailView(props) {
                   color="primary"
                   //disabled={props.sellingBillDetails[0].status_confirm}
                   className={[classes.button, classes.right]}
-                  onClick={(e) => props.handleSubmit(e, props.sellingBillDetails[0].import_bill_id)}
+                  onClick={(e) => props.handleUpdateStatus(e)}
                   type="button">
                   Xác nhận
               </Button>

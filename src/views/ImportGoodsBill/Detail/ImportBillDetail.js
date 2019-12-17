@@ -14,13 +14,12 @@ class ImportBillDetail extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log('props', props);
     this.state = {
         importBillDetails: props.importBillDetails,
         vendorName: props.vendorName,
         vendorEmail: props.vendorEmail,
         totalBill: props.totalBill,
-        totalPaid: props.totalPaid
+        totalPaid: props.totalPaid,
     };
   }
 
@@ -37,7 +36,7 @@ class ImportBillDetail extends React.Component {
       vendorName: nextProps.vendorName,
       vendorEmail: nextProps.vendorEmail,
       totalBill: nextProps.totalBill,
-      totalPaid: nextProps.totalPaid,
+      totalPaid: nextProps.totalPaid,    
       fetchImportBillDetail: (id) => nextProps.fetchImportBillDetail(id),
       updateImportBillStatus: (id) => nextProps.updateImportBillStatus(id),
       reset: () => nextProps.reset(),
@@ -46,8 +45,8 @@ class ImportBillDetail extends React.Component {
   }
 
   //------------------- event functions 
-  handleSubmit(e, id) {
-    this.props.updateImportBillStatus(id);
+  handleUpdateStatus(e) {
+    this.props.updateImportBillStatus(this.props.match.params.id);
   }
 
   calTotalBill(){
@@ -88,7 +87,7 @@ class ImportBillDetail extends React.Component {
         vendorEmail={this.state.vendorEmail}
         totalPaid = { this.state.totalPaid }
         totalBill = { this.state.totalBill }
-        handleSubmit={(e, id) => this.handleSubmit(e, id)}
+        handleUpdateStatus={(e) => this.handleUpdateStatus(e)}
         redirect={e => this.redirect(e)}
       />
     );
