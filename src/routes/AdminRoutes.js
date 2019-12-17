@@ -46,6 +46,7 @@ import SellingBillDetail from 'views/SellingBill/SellingBillDetail/SellingBillDe
 
 import AddImportBill from 'views/ImportGoodsBill/ImportGoodsBill';  
 import ListImportBill from 'views/ImportGoodsBill/List/ListImportBill.js'
+import ImportBillDetail from 'views/ImportGoodsBill/Detail/ImportBillDetail.js';
  
 const dashboardRoutes = [
   {
@@ -206,6 +207,15 @@ const dashboardRoutes = [
     component: ListImportBill,
     layout: "/admin",
     display: true,
+    exact: true
+  },
+  {
+    path: "/import-bill/:id",
+    name: "Chi tiết hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: ImportBillDetail,
+    layout: "/admin",
+    display: false,
     exact: true
   },
   

@@ -39,10 +39,10 @@ import {
           ...state,
           fetching: false,
           fetched: true,
-          importBills: action.importBills.data,
-          currentPage: Number(action.importBills.current_page),
-          totalRows: Number(action.importBills.total),
-          perPage: Number(action.importBills.per_page)
+          importBills: action.importBills.import_goods_bill.data,
+          currentPage: Number(action.importBills.import_goods_bill.current_page),
+          totalRows: Number(action.importBills.import_goods_bill.total),
+          perPage: Number(action.importBills.import_goods_bill.per_page)
         };
       case GET_USER_ROLE_SUCCESS:
         return {

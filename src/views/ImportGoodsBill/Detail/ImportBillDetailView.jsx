@@ -90,7 +90,6 @@ const billStyles = makeStyles(theme => ({
 
 export default function ImportBillDetailView(props) {
     const classes = billStyles();
-    //console.log('this is bill detail', props.sellingBillDetails[0]);
     switch(5){
       default:
         return (
@@ -125,16 +124,16 @@ export default function ImportBillDetailView(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {props.importBillDetails.map(row => (
-                  <TableRow key={row.id}>
+                 {props.importBillDetails.map((row, i) => (
+                  <TableRow key={i}>
                     <TableCell component="th" scope="row">
-                      {row.id}
+                      {i + 1}
                     </TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">{row.unit}</TableCell>
-                    <TableCell align="right">{row.quantity}</TableCell>
-                    <TableCell align="right">{row.price}</TableCell>
-                    <TableCell align="right">{row.quantity * row.price}</TableCell>
+                    <TableCell align="right">{row.product_name}</TableCell>
+                    <TableCell align="right">{row.product_unit}</TableCell>
+                    <TableCell align="right">{row.IGD_quantity}</TableCell>
+                    <TableCell align="right">{row.IGD_unit_price}</TableCell>
+                    <TableCell align="right">{row.IGD_quantity * row.IGD_unit_price}</TableCell>
                   </TableRow>
                 ))}
                  {/* <TableRow>
@@ -205,7 +204,7 @@ export default function ImportBillDetailView(props) {
                     disabled
                     className={ classes.full_size }
                     name="total_paid"
-                    label="Tên Khách hàng"              
+                    label="Tên đối tác"              
                     value={(props.vendorName) ? props.vendorName : ''}
               />
               <TextField
@@ -229,16 +228,16 @@ export default function ImportBillDetailView(props) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {props.improtBillDetails.map(row => (
-                  <TableRow key={row.id}>
+                {props.importBillDetails.map((row, i) => (
+                  <TableRow key={i}>
                     <TableCell component="th" scope="row">
-                      {row.id}
+                      {i + 1}
                     </TableCell>
-                    <TableCell align="right">{row.name}</TableCell>
-                    <TableCell align="right">{row.unit}</TableCell>
-                    <TableCell align="right">{row.quantity}</TableCell>
-                    <TableCell align="right">{row.price}</TableCell>
-                    <TableCell align="right">{row.quantity * row.price}</TableCell>
+                    <TableCell align="right">{row.product_name}</TableCell>
+                    <TableCell align="right">{row.product_unit}</TableCell>
+                    <TableCell align="right">{row.IGD_quantity}</TableCell>
+                    <TableCell align="right">{row.IGD_unit_price}</TableCell>
+                    <TableCell align="right">{row.IGD_quantity * row.IGD_unit_price}</TableCell>
                   </TableRow>
                 ))}
                  {/* <TableRow>

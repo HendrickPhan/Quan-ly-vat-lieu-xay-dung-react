@@ -6,7 +6,6 @@ import MaterialTable from 'material-table';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 // core components
 import GridItem from "components/Grid/GridItem.js";
@@ -70,7 +69,6 @@ function createColumn() {
 export default function ImportBilliew(props) {
     const classes = useStyles();
     createColumn();
-    console.log('this is props', props.importBills);
     const tableOption = {
         actionsColumnIndex: 100,
         headerStyle: {
@@ -80,7 +78,6 @@ export default function ImportBilliew(props) {
             width: 'fit-content'
         },
         pageSize: props.perPage ? props.perPage : 0
-
     }
 
     switch(userRole){

@@ -9,8 +9,8 @@ import {
   
   const initialState = {
     importBillDetails: [],
-    verdorName: '',
-    customerEmail: '',
+    vendorName: '',
+    vendorEmail: '',
     fetching: false,
     fetched: false,
     totalBill: 0,
@@ -20,16 +20,16 @@ import {
   export default function (state = initialState, action) {
     switch (action.type) {
       case FETCH_IMPORT_BILL_DETAIL_SUCCESS:
-        console.log('selling bill detail', action.importBillDetail);
+        console.log('import bill detail', action.importBillDetail[0].vendor_name);
         return {
           ...state,
           fetching: false,
           fetched: true,
           importBillDetails: action.importBillDetail,
-          verdorName: action.importBillDetail[0].vendor_name,
-          customerEmail: action.importBillDetail[0].email,
-          totalBill: action.importBillDetail[0].total_amount,
-          totalPaid: action.importBillDetail[0].total_paid
+          vendorName: action.importBillDetail[0].vendor_name,
+          vendorEmail: action.importBillDetail[0].vendor_email,
+          totalBill: action.importBillDetail[0].IG_total_amount,
+          totalPaid: action.importBillDetail[0].IG_total_paid
         };
   
       case FETCH_IMPORT_BILL_DETAIL_FAILURE:

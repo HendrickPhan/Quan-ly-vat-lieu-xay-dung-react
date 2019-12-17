@@ -2,7 +2,7 @@ import React from "react";
 // react-redux components
 import { connect } from 'react-redux';
 import { Router, Route, Switch, Redirect } from "react-router-dom";
-import { fetchImportBillDetail, updateImportBillStatus, reset } from './SellingBillDetailAction';
+import { fetchImportBillDetail, updateImportBillStatus, reset } from './ImportBillDetailAction';
 // react-router-doom components
 import { generatePath } from "react-router";
 
@@ -13,31 +13,29 @@ import ImportBillDetailView from "./ImportBillDetailView";
 class ImportBillDetail extends React.Component {
 
   constructor(props) {
-    //console.log('this is constructor');
     super(props);
-
+    console.log('props', props);
     this.state = {
         importBillDetails: props.importBillDetails,
-        customerName: props.customerName,
-        customerPhone: props.customerPhone,
+        vendorName: props.vendorName,
+        vendorEmail: props.vendorEmail,
         totalBill: props.totalBill,
         totalPaid: props.totalPaid
     };
   }
 
-  componentDidMount() {
-    console.log(this.props.match.params.id);
-    
+  componentDidMount() {    
     this.props.fetchImportBillDetail(this.props.match.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
+    
     this.setState({
       fetching: nextProps.fetching,
       fetched: nextProps.fetched,
       importBillDetails: nextProps.importBillDetails,
-      customerName: nextProps.customerName,
-      customerPhone: nextProps.customerPhone,
+      vendorName: nextProps.vendorName,
+      vendorEmail: nextProps.vendorEmail,
       totalBill: nextProps.totalBill,
       totalPaid: nextProps.totalPaid,
       fetchImportBillDetail: (id) => nextProps.fetchImportBillDetail(id),
@@ -81,12 +79,13 @@ class ImportBillDetail extends React.Component {
         width: 'fit-content'
       }
     }
+    console.log('this is state', this.state);
     return (
       <ImportBillDetailView
         fetched={this.state.fetched}
         importBillDetails={this.state.importBillDetails}
-        customerName={this.state.customerName}
-        customerPhone={this.state.customerPhone}
+        vendorName={this.state.vendorName}
+        vendorEmail={this.state.vendorEmail}
         totalPaid = { this.state.totalPaid }
         totalBill = { this.state.totalBill }
         handleSubmit={(e, id) => this.handleSubmit(e, id)}
@@ -103,8 +102,8 @@ const mapState = state => ({
   importBillDetails: state.importBillDetail.importBillDetails,
   totalBill: state.importBillDetail.totalBill,
   totalPaid: state.importBillDetail.totalPaid,
-  customerName: state.importBillDetail.customerName,
-  customerPhone: state.importBillDetail.customerPhone,
+  vendorName: state.importBillDetail.vendorName,
+  vendorEmail: state.importBillDetail.vendorEmail,
   error: state.importBillDetail.error,
 });
 

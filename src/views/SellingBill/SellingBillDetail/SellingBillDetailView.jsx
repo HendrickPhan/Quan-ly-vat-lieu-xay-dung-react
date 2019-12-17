@@ -90,7 +90,7 @@ const billStyles = makeStyles(theme => ({
 
 export default function SellingBillDetailView(props) {
     const classes = billStyles();
-    console.log('this is bill detail', props.sellingBillDetails[0]);
+    ///console.log('this is bill detail', props.sellingBillDetails[0]);
     switch(5){
       default:
         return (
