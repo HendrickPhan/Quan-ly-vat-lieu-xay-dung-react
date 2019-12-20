@@ -146,15 +146,15 @@ export default function UserFormView(props) {
                         <FormControl fullWidth>
                             <InputLabel id="demo-simple-select-label">Chức vụ</InputLabel>
                             <Select id="role" name="role"
-                                value={props.user.role}
+                                value={props.user.role ? props.user.role : ''}
                                 onChange={(value) => props.handleRoleChange(value)}
                             >
                                 {(getUserRole() === 1 || getUserRole() === 0) ? 
                                 (<MenuItem value={2}>Assistant Staff</MenuItem>)
-                                : ''}
+                                : null}
                                 {(getUserRole() === 2 || getUserRole() === 1 || getUserRole() === 0) ? 
                                 (<MenuItem value={3}>Agency Mananager</MenuItem>)
-                                : ''}
+                                : null}
                                 <MenuItem value={4}>Bussiness Staff</MenuItem>
                                 <MenuItem value={5}>Warehouse Staff</MenuItem>
                             </Select>
