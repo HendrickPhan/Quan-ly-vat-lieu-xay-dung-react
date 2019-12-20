@@ -1,6 +1,7 @@
 import React from "react";
 // react-redux components
 import { connect } from 'react-redux';
+import { getUserRole } from '../../../routes/UserRoleStatic';
 import { Router, Route, Switch, Redirect } from "react-router-dom";
 import { fetchSellingBillDetail, updateSellingBillStatus, reset, fetchSellingTransaction } from './SellingBillDetailAction';
 // react-router-doom components
@@ -9,10 +10,8 @@ import { generatePath } from "react-router";
 // core components
 import SellingBillDetailView from "./SellingBillDetailView.jsx";
 
-var userRole = 4;
-// if(JSON.parse(localStorage.getItem('user_info'))) {
-//   userRole =  JSON.parse(localStorage.getItem('user_info')).user.role;
-// }
+var userRole = getUserRole;
+
 class SellingBillDetail extends React.Component {
 
   constructor(props) {
@@ -33,9 +32,6 @@ class SellingBillDetail extends React.Component {
     
     this.props.fetchSellingBillDetail(this.props.match.params.id);
     this.props.fetchSellingTransaction(this.props.match.params.id);
-    if(this.userRole == 0){
-      this.props.fetchSellingTransaction(this.props.match.params.id);
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,11 +51,6 @@ class SellingBillDetail extends React.Component {
       reset: () => nextProps.reset(),
       error: nextProps.error
     });
-    if(userRole == 0){
-      this.setState({
-        fetchSellingTransaction: (id) => nextProps.fetchSellingTransaction(id),
-      })
-    }
   }
 
   //------------------- event functions 

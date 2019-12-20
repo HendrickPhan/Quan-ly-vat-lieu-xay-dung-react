@@ -12,11 +12,17 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 
+import {getUserRole} from '../../../routes/UserRoleStatic';
+
 import {
     WAREHOUSE_STAFF,
-    ADMIN_USER,
-    BUSSINESS_STAFF,
-  } from '../SellingBillAction';
+    ADMIN,
+    BUSINESS_STAFF,
+    ASSISTANT,
+    AGENCY_MANAGER,
+  } from '../../../routes/UserRoleStatic';
+
+const userRole = getUserRole();
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -24,14 +30,11 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-let userRole = BUSSINESS_STAFF;
-// if(JSON.parse(localStorage.getItem('user_info'))) {
-//   userRole = JSON.parse(localStorage.getItem('user_info')).user.role;
-// }
+
 let flag = false;
 
 var fixColumn = [
-    { title: 'Id', field: 'id', type: 'numeric', cellStyle: { textAlign: 'left' } },
+    { title: 'Mã hóa đơn', field: 'id', type: 'numeric', cellStyle: { textAlign: 'left' } },
     { title: 'Tên khách hàng', field: 'name', cellStyle: { textAlign: 'left' } },
     { title: 'Ngày lập', field: 'created_at', cellStyle: { textAlign: 'left' } },
     { title: 'Tổng tiền', field: 'total_amount', cellStyle: { textAlign: 'left' } },
@@ -51,14 +54,11 @@ function createListAction(props){
             onClick: (event, rowData) => { props.viewDetailBill(rowData.id) }
         },
     ]
-
-   
-
     return result;
 }
 
 function createColumn() {
-    if(userRole === ADMIN_USER && !flag){
+    if(userRole === ADMIN && !flag){
         // fixColumn.push(
         //     { title: 'Trạng thái hàng', field: 'status_confirm', cellStyle: { textAlign: 'left' } },
         // );
@@ -81,12 +81,10 @@ export default function SellingBilliew(props) {
         pageSize: props.perPage ? props.perPage : 0
 
     }
-
     switch(userRole){
-        case BUSSINESS_STAFF:
+        case BUSINESS_STAFF:
             return (
                 <GridContainer>
-                    
                     <GridItem xs={12} sm={12} md={12}>
                         <Tooltip title="Thêm loại sản phẩm">
                             <Fab className={classes.button} color="primary" aria-label="add" onClick={() => props.onAddClickHandle()}>

@@ -105,9 +105,9 @@ export default function Dashboard(props) {
                 <Icon className="fa fa-users" />
               </CardIcon>
               <p className={classes.cardCategory}>Tổng số nhân viên</p>
-              <h3 className={classes.cardTitle}>
+              <h4 className={classes.cardTitle}>
                 {props.totalUser}
-              </h3>
+              </h4>
             </CardHeader>
           </Card>
         </GridItem>
@@ -118,7 +118,7 @@ export default function Dashboard(props) {
                 <Icon className="fa fa-shopping-cart" />
               </CardIcon>
               <p className={classes.cardCategory}>Tổng số hóa đơn</p>
-              <h3 className={classes.cardTitle}>{props.totalSellingBill}</h3>
+              <h4 className={classes.cardTitle}>{props.totalSellingBill}</h4>
             </CardHeader>
           </Card>
         </GridItem>
@@ -129,7 +129,7 @@ export default function Dashboard(props) {
                 <Icon className="far fa-money-bill-alt"/>
               </CardIcon>
               <p className={classes.cardCategory}>Tổng số tiền thu</p>
-              <h3 className={classes.cardTitle}>{props.totalPaid}</h3>
+              <h4 className={classes.cardTitle}>{props.totalPaid}</h4>
             </CardHeader>
           </Card>
         </GridItem>
@@ -140,7 +140,7 @@ export default function Dashboard(props) {
                 <Icon className="fa fa-dollar-sign"/>
               </CardIcon>
               <p className={classes.cardCategory}>Tổng số tiền chi</p>
-              <h3 className={classes.cardTitle}>{props.totalSpend}</h3>
+              <h4 className={classes.cardTitle}>{props.totalSpend}</h4>
             </CardHeader>
           </Card>
         </GridItem>

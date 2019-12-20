@@ -35,12 +35,14 @@ const dashboardStyle = {
     }
   },
   cardCategory: {
+    display: 'block',
     color: grayColor[0],
     margin: "0",
     fontSize: "14px",
     marginTop: "0",
     paddingTop: "10px",
-    marginBottom: "0"
+    marginBottom: "0",
+    height: '50px'
   },
   cardCategoryWhite: {
     color: "rgba(" + hexToRgb(whiteColor) + ",.62)",

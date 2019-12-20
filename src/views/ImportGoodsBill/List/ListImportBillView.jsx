@@ -10,12 +10,14 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-
+import {getUserRole} from '../../../routes/UserRoleStatic';
 import {
     WAREHOUSE_STAFF,
-    ADMIN_USER,
-    BUSSINESS_STAFF,
-  } from './ListImportBillAction';
+    ADMIN,
+    BUSINESS_STAFF,
+    ASSISTANT,
+    AGENCY_MANAGER,
+  } from '../../../routes/UserRoleStatic';
 
 const useStyles = makeStyles(theme => ({
     button: {
@@ -23,10 +25,6 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-let userRole = ADMIN_USER;
-if(JSON.parse(localStorage.getItem('user_info'))) {
-  userRole = JSON.parse(localStorage.getItem('user_info')).user.role;
-}
 let flag = false;
 
 var fixColumn = [
@@ -36,7 +34,6 @@ var fixColumn = [
     { title: 'Tổng tiền', field: 'total_amount', cellStyle: { textAlign: 'left' } },    
     { title: 'Trạng thái hàng', field: 'status', cellStyle: { textAlign: 'left' } },
 ];
-
 
 function createListAction(props){
     let result = 
@@ -50,25 +47,13 @@ function createListAction(props){
             onClick: (event, rowData) => { props.viewDetailBill(rowData.id) }
         },
     ]
-
-   
-
     return result;
-}
-
-function createColumn() {
-    if(userRole === ADMIN_USER && !flag){
-        fixColumn.push(
-          //  { title: 'Trạng thái hàng', field: 'status_confirm', cellStyle: { textAlign: 'left' } },
-        );
-    }
-    flag = true;
 }
 
 
 export default function ImportBilliew(props) {
     const classes = useStyles();
-    createColumn();
+    const userRole = getUserRole();
     const tableOption = {
         actionsColumnIndex: 100,
         headerStyle: {
@@ -81,12 +66,11 @@ export default function ImportBilliew(props) {
     }
 
     switch(userRole){
-        case BUSSINESS_STAFF:
+        case AGENCY_MANAGER:
             return (
                 <GridContainer>
-                    
                     <GridItem xs={12} sm={12} md={12}>
-                        <Tooltip title="Thêm loại sản phẩm">
+                        <Tooltip title="Thêm hóa đơn nhập hàng">
                             <Fab className={classes.button} color="primary" aria-label="add" onClick={() => props.onAddClickHandle()}>
                                 <AddIcon />
                             </Fab>
@@ -113,11 +97,10 @@ export default function ImportBilliew(props) {
                             }}
                             columns={ fixColumn }
                             data={props.importBills}
-                            title="Hóa đơn bán hàng"
+                            title="Hóa đơn nhập hàng"
                             actions={ createListAction(props) }
                             options={tableOption}
                         />
-        
                     </GridItem>
                 </GridContainer>
             );
