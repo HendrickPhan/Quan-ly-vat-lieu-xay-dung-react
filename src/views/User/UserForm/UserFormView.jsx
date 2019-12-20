@@ -17,6 +17,7 @@ import Modal from '@material-ui/core/Modal';
 import Input from '@material-ui/core/Input';
 import Chip from '@material-ui/core/Chip';
 import Fade from '@material-ui/core/Fade';
+import { getUserRole } from '../../../routes/UserRoleStatic'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -26,7 +27,6 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function UserFormView(props) {
-    console.log(props);
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -38,17 +38,14 @@ export default function UserFormView(props) {
         setOpen(false);
     };
 
-    const getCardActionsStyle = () => {
-        return {
-            display: "flex",
-            justifyContent: 'center'
-        }
-    }
-
     let idField = "";
     let imageField = "";
-    let imagesName = "";
-    // props.user.avatar.name;
+    let imageName = "";
+    if(props.user.avatar) {
+        for (var i = 0; i < props.user.avatar.length; i++) {
+            imageName = props.user.avatar[i].name
+        }
+    }
     if (props.user.id) {
         idField = <Grid item xs={12} sm={12}>
             <TextField
@@ -104,7 +101,7 @@ export default function UserFormView(props) {
 
     return (
         <Paper className={classes.root}>
-            <form noValidate autoComplete="off" onSubmit={(e) => props.handleSubmit(e)}>
+            <form autoComplete="off" onSubmit={(e) => props.handleSubmit(e)}>
                 <Grid container spacing={3}>
                     {idField}
                     <Grid item xs={12} sm={12}>
@@ -132,8 +129,9 @@ export default function UserFormView(props) {
                             Upload File
                         <input
                                 type="file"
+                                name="avatar"
                                 style={{ display: "none" }}
-                                onChange={(e) => props.handleImagesChange(e)}
+                                onChange={(e) => props.handleImageChange(e)}
                             />
                         </Button>
                     </Grid>
@@ -141,8 +139,7 @@ export default function UserFormView(props) {
                         <TextField
                             readOnly
                             fullWidth
-                            multiline
-                            value={imagesName}
+                            value={imageName}
                         />
                     </Grid>
                     <Grid item xs={12} sm={12}>
@@ -152,62 +149,16 @@ export default function UserFormView(props) {
                                 value={props.user.role}
                                 onChange={(value) => props.handleRoleChange(value)}
                             >
-                                <MenuItem value={0}>Admin</MenuItem>
-                                <MenuItem value={1}>Mananager</MenuItem>
-                                <MenuItem value={2}>Assistant Staff</MenuItem>
-                                <MenuItem value={3}>Agency Mananager</MenuItem>
+                                {(getUserRole() === 1 || getUserRole() === 0) ? 
+                                (<MenuItem value={2}>Assistant Staff</MenuItem>)
+                                : ''}
+                                {(getUserRole() === 2 || getUserRole() === 1 || getUserRole() === 0) ? 
+                                (<MenuItem value={3}>Agency Mananager</MenuItem>)
+                                : ''}
                                 <MenuItem value={4}>Bussiness Staff</MenuItem>
                                 <MenuItem value={5}>Warehouse Staff</MenuItem>
                             </Select>
                         </FormControl>
-                    </Grid>
-                    {/* <Grid item xs={12} sm={12}>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Loại sản phẩm</InputLabel>
-                            <Select
-                                labelid="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={props.agencies.map(agency => agency.id)}
-                                name="agency_id"
-                                // onChange={props.handleCategorySelectChange}
-                                fullWidth
-                                multiple
-                                input={<Input id="agency_id" />}
-                                renderValue={selected => (
-                                    <div className={classes.chips}>
-                                        {selected.map(value => (
-                                            props.categorySelectList.map(category => {
-                                                if (category.id === value) {
-                                                    return (
-                                                        <Chip key={value} label={category.name} className={classes.chip} />
-                                                    )
-                                                }
-                                            })
-                                        ))}
-                                    </div>
-                                )}
-                            >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                {props.categorySelectList.map(prop => {
-                                    return (
-                                        <MenuItem value={prop.id} key={prop.id} >{prop.name}</MenuItem>
-                                    )
-                                })}
-                            </Select>
-                        </FormControl>
-                    </Grid> */}
-                    <Grid item xs={12} sm={12}>
-                        <TextField
-                            required
-                            id="address"
-                            name="address"
-                            label="Địa chỉ"
-                            fullWidth
-                            value={props.user.address ? props.user.address : ''}
-                            onChange={(e) => props.handleChange(e)}
-                        />
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <TextField
@@ -215,6 +166,7 @@ export default function UserFormView(props) {
                             id="email"
                             name="email"
                             label="Email"
+                            type="email"
                             fullWidth
                             value={props.user.email ? props.user.email : ''}
                             onChange={(e) => props.handleChange(e)}
@@ -233,25 +185,13 @@ export default function UserFormView(props) {
                     </Grid>
                     <Grid item xs={12} sm={12}>
                         <TextField
-                            required
+                            required={!props.user.id}
                             id="password"
                             name="password"
                             label="Password"
                             type="password"
                             fullWidth
                             value={props.user.password ? props.user.password: ''}
-                            onChange={(e) => props.handleChange(e)}
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
-                        <TextField
-                            required
-                            id="retype_psw"
-                            name="retype_psw"
-                            label="Nhập lại password"
-                            type="password"
-                            fullWidth
-                            value={props.retype_psw ? props.retype_psw: ''}
                             onChange={(e) => props.handleChange(e)}
                         />
                     </Grid>

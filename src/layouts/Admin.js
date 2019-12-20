@@ -129,8 +129,7 @@ export default function Admin({ ...rest }) {
       <Sidebar
         routes={routes}
         logoText={"Công ty vật liệu ABC"}
-        logo={logo}
-        logoLink={"http://meo.com"}
+        logoLink={"/"}
         image={image}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}

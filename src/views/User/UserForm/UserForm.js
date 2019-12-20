@@ -6,7 +6,7 @@ import { fetchUser, editUser, addUser, reset, fetchAgency } from './UserFormActi
 import { generatePath } from "react-router";
 
 // core components
-import UserFormView from "./UserFromView.jsx";
+import UserFormView from "./UserFormView.jsx";
 
 
 class UserForm extends React.Component {
@@ -18,7 +18,6 @@ class UserForm extends React.Component {
       user: {
         id: null,
         name: '',
-        address: '',
         phone: '',
         email: '',
         in_debt_amount: 0,
@@ -68,7 +67,7 @@ class UserForm extends React.Component {
     }));
   }
 
-  handleImagesChange = e => {
+  handleImageChange = e => {
     const { files } = e.target;
 
     this.setState(prevState => ({
@@ -76,11 +75,24 @@ class UserForm extends React.Component {
         ...prevState.user,
         avatar: files
       }
-    }));
+    }), ()=>{console.log(this.state)});
   }
+
   handleSubmit(e) {
     e.preventDefault();
-    let data = (({ name, address,role, phone, email, password, retype_psw }) => ({ name, address, role, phone, email, password, retype_psw }))(this.state.user);
+    let  { avatar, name, role, phone, email, password } = this.state.user;
+
+    let data = {
+      avatar: avatar, 
+      name: name,
+      role: role,
+      phone: phone,
+      email: email,
+    }
+
+    if(password) {
+      data.password = password 
+    }
     
     if(this.state.user.id){
       this.props.editUser(this.state.user.id, data);
@@ -88,10 +100,10 @@ class UserForm extends React.Component {
     else {
       const { history } = this.props;
       this.props.addUser(data).then( user => {
-        // history.push({
-        //   pathname: generatePath(this.props.match.path, {id: user.id})
-        // });
-        // this.props.fetchUser(user.id);
+        history.push({
+          pathname: generatePath(this.props.match.path, {id: user.id})
+        });
+        this.props.fetchUser(user.id);
 
       }); 
     } 
@@ -158,7 +170,7 @@ class UserForm extends React.Component {
         handleChange={(e) => this.handleChange(e)}
         handleSubmit={(e) => this.handleSubmit(e)}
         handleRoleChange={(e) => this.handleRoleChange(e)}
-        handleImagesChange={e => this.handleImagesChange(e)}
+        handleImageChange={e => this.handleImageChange(e)}
         agencies={this.state.agencies}
       />
     );
