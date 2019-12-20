@@ -4,8 +4,8 @@ export const FETCH_SELLING_BILL_DETAIL_SUCCESS = 'FETCH_SELLING_BILL_DETAIL_SUCC
 export const FETCH_SELLING_BILL_DETAIL_FAILURE = 'FETCH_SELLING_BILL_DETAIL_FAILURE';
 export const FETCH_SELLING_TRANSACTION_SUCCESS = 'FETCH_SELLING_TRANSACTION_SUCCESS';
 export const FETCH_SELLING_TRANSACTION_FAILURE = 'FETCH_SELLING_TRANSACTION_FAILURE';
-export const ADD_TRANSACTION_SUCCCESS = 'ADD_TRANSACRTION_SUCCESS';
-export const ADD_TRANSACRTION_FAILURE = 'ADD_TRANSACTION_FAILURE';
+export const ADD_TRANSACTION_SUCCESS = 'ADD_TRANSACTION_SUCCESS';
+export const ADD_TRANSACTION_FAILURE = 'ADD_TRANSACTION_FAILURE';
 export const UPDATE_SELLING_BILL_STATUS_SUCCESS = 'UPDATE_SELLING_BILL_STATUS_SUCCESS';
 export const UPDATE_SELLING_BILL_STATUS_FAILURE = 'UPDATE_SELLING_BILL_STATUS_FAILURE';
 export const RESET_FORM = 'RESET_FORM';
@@ -68,6 +68,7 @@ export const reset = () => {
 }
 
 export const addSellingTransaction = (data) =>{
+
   return dispatch => {
     return _addTransaction(data)
       .then(response => {
@@ -133,13 +134,12 @@ const _addTransaction = (data) => {
     },
   };
 
-  return fetch(process.env.REACT_APP_API_URL + `/selling-bill/` + id, requestOptions)
+  return fetch(process.env.REACT_APP_API_URL + `/selling-bill/` + data, requestOptions)
     .then(handleResponse)
     .then(bill => {
       return bill;
     });
 }
-
 
 const _getSellingBillDetail = (id) => {
   const requestOptions = {
