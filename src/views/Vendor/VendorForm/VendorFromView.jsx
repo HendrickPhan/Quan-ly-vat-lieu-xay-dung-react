@@ -103,7 +103,6 @@ export default function VendorFormView(props) {
                             onChange={(e) => props.handleChange(e)}
                         />
                     </Grid>
-                    {inDebtAmountField}
                     <Grid item xs={12} sm={12}>
                         <Button
                             type="submit"

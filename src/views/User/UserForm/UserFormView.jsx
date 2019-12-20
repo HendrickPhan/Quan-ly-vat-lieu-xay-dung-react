@@ -150,13 +150,13 @@ export default function UserFormView(props) {
                                 onChange={(value) => props.handleRoleChange(value)}
                             >
                                 {(getUserRole() === 1 || getUserRole() === 0) ? 
-                                (<MenuItem value={2}>Assistant Staff</MenuItem>)
+                                (<MenuItem value={2}>Trợ lý</MenuItem>)
                                 : null}
                                 {(getUserRole() === 2 || getUserRole() === 1 || getUserRole() === 0) ? 
-                                (<MenuItem value={3}>Agency Mananager</MenuItem>)
+                                (<MenuItem value={3}>Quản lý đại lý</MenuItem>)
                                 : null}
-                                <MenuItem value={4}>Bussiness Staff</MenuItem>
-                                <MenuItem value={5}>Warehouse Staff</MenuItem>
+                                <MenuItem value={4}>Nhân viên kinh doanh</MenuItem>
+                                <MenuItem value={5}>Nhân viên kho</MenuItem>
                             </Select>
                         </FormControl>
                     </Grid>
