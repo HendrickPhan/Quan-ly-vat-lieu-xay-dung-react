@@ -124,7 +124,6 @@ export const editUser = (id, data) => {
 
 export const addUser = (data) => {
   return dispatch => {
-    dispatch(fetchUserBegin());
     return _addUser(data)
       .then(user => {
         dispatch(addUserSuccess(user));
@@ -159,13 +158,27 @@ const _getUser = (id) => {
 }
 
 const _editUser = (id, data) => {
+  let formData = new FormData();
+  formData.append("_method", "PUT");
+  formData.append("name", data.name);
+  formData.append("email", data.email);
+  formData.append("role", data.role);
+  formData.append("phone", data.phone);
+  
+  if(data.password){
+    formData.append("password", data.password);
+  }
+  if(data.avatar){
+    formData.append("avatar", data.avatar[0]);
+  }
+
   const requestOptions = {
-    method: 'PUT',
+    method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': token
     },
-    body: JSON.stringify(data)
+    body: formData
   };
 
   return fetch(process.env.REACT_APP_API_URL + `/user/` + id, requestOptions)
@@ -176,13 +189,27 @@ const _editUser = (id, data) => {
 }
 
 const _addUser= (data) => {
+  let formData = new FormData();
+  formData.append("name", data.name);
+  formData.append("email", data.email);
+  formData.append("address", data.address);
+  formData.append("role", data.role);
+  formData.append("phone", data.phone);
+  if(data.password){
+    formData.append("password", data.password);
+  }
+  if(data.avatar){
+    formData.append("avatar", data.avatar[0]);
+  }
+
   const requestOptions = {
+    
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': token
     },
-    body: JSON.stringify(data)
+    body: formData
   };
 
   return fetch(process.env.REACT_APP_API_URL + `/user`, requestOptions)
@@ -221,6 +248,7 @@ const handleResponse = (response) => {
     if (!response.ok) {
       const error = (data && data.message) || response.statusText;
      
+      console.log('ERR');
       return Promise.reject(error);
     }
 

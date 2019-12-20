@@ -6,7 +6,7 @@ export const BUSINESS_STAFF = 4;
 export const WAREHOUSE_STAFF = 5;
 
 export function getUserRole(){
-    let userRole = 0;
+    let userRole = null;
 
     if(JSON.parse(localStorage.getItem('user_info'))) {
         userRole =  JSON.parse(localStorage.getItem('user_info')).user.role;

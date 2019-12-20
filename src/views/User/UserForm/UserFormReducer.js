@@ -18,7 +18,7 @@ const initialState = {
     address: '',
     phone: '',
     role: 0,
-    password: ''
+    password: '',
   },
   retype_psw: '',
   agencies:[],
