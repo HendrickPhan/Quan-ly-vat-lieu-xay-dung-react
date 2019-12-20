@@ -29,7 +29,7 @@ let flag = false;
 
 var fixColumn = [
     { title: 'Mã hóa đơn', field: 'id', type: 'numeric', cellStyle: { textAlign: 'left' } },
-    { title: 'Tên đối tác', field: 'name', cellStyle: { textAlign: 'left' } },
+    { title: 'Tên đối tác', field: 'vendor.name', cellStyle: { textAlign: 'left' } },
     { title: 'Ngày lập', field: 'created_at', cellStyle: { textAlign: 'left' } },
     { title: 'Tổng tiền', field: 'total_amount', cellStyle: { textAlign: 'left' } },    
     { title: 'Trạng thái hàng', field: 'status', cellStyle: { textAlign: 'left' } },

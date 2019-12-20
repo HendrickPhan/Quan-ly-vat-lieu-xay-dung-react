@@ -38,10 +38,10 @@ import {
           ...state,
           fetching: false,
           fetched: true,
-          sellingBills: action.sellingBills.selling_bill.data,
-          currentPage: Number(action.sellingBills.selling_bill.current_page),
-          totalRows: Number(action.sellingBills.selling_bill.total),
-          perPage: Number(action.sellingBills.selling_bill.per_page)
+          sellingBills: action.sellingBills.data,
+          currentPage: Number(action.sellingBills.current_page),
+          totalRows: Number(action.sellingBills.total),
+          perPage: Number(action.sellingBills.per_page)
         };
       case GET_USER_ROLE_SUCCESS:
         return {
