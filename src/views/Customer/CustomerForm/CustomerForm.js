@@ -43,7 +43,7 @@ class CustomerForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    let data = (({ name, address, phone }) => ({ name, address, phone }))(this.state.customer);
+    let data = (({ name, address, phone, email }) => ({ name, address, phone, email }))(this.state.customer);
     
     if(this.state.customer.id){
       this.props.editCustomer(this.state.customer.id, data);

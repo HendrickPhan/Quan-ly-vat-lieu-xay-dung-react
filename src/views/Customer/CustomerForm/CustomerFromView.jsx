@@ -46,9 +46,21 @@ export default function CustomerFormView(props) {
                             required
                             id="name"
                             name="name"
-                            label="Tên đại lý"
+                            label="Tên khách hàng"
                             fullWidth
                             value={props.customer.name ? props.customer.name : ''}
+                            onChange={(e) => props.handleChange(e)}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <TextField
+                            required
+                            id="email"
+                            name="email"
+                            label="Email"
+                            type="email"
+                            fullWidth
+                            value={props.customer.email ? props.customer.email : ''}
                             onChange={(e) => props.handleChange(e)}
                         />
                     </Grid>
