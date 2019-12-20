@@ -147,6 +147,7 @@ const _editProduct = (id, data) => {
   formData.append("name", data.name);
   formData.append("price", data.price);
   formData.append("unit", data.unit);
+  formData.append("import_price", data.import_price);
   
   data.categories.map(category => {
     formData.append("categories[]", category);
