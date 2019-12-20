@@ -20,16 +20,16 @@ import {
   export default function (state = initialState, action) {
     switch (action.type) {
       case FETCH_IMPORT_BILL_DETAIL_SUCCESS:
-       
+        console.log('actions', action);
         return {
           ...state,
           fetching: false,
           fetched: true,
-          importBillDetails: action.importBillDetail,
-          vendorName: action.importBillDetail[0].vendor_name,
-          vendorEmail: action.importBillDetail[0].vendor_email,
-          totalBill: action.importBillDetail[0].IG_total_amount,
-          totalPaid: action.importBillDetail[0].IG_total_paid,
+          importBillDetails: action.importBillDetail.import_goods_bill_detail,
+          vendorName: action.importBillDetail.vendor.name,
+          vendorEmail: action.importBillDetail.vendor.email,
+          totalBill: action.importBillDetail.total_amount,
+          totalPaid: action.importBillDetail.total_paid,
         };
   
       case FETCH_IMPORT_BILL_DETAIL_FAILURE:

@@ -1,7 +1,6 @@
 import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import MaterialTable from 'material-table';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
@@ -36,7 +35,6 @@ export default function AgencyFormView(props) {
                         fullWidth
                         disabled
                         value={props.fetched && props.agency.id ? props.agency.id : ''}
-
                     />
                 </Grid>
     } 

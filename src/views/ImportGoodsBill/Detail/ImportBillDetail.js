@@ -28,7 +28,6 @@ class ImportBillDetail extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    
     this.setState({
       fetching: nextProps.fetching,
       fetched: nextProps.fetched,
@@ -78,7 +77,6 @@ class ImportBillDetail extends React.Component {
         width: 'fit-content'
       }
     }
-    console.log('this is state', this.state);
     return (
       <ImportBillDetailView
         fetched={this.state.fetched}

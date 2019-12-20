@@ -34,7 +34,6 @@ import {
           fetching: true,
         };
       case FETCH_LIST_IMPORT_BILL_SUCCESS:
-        console.log('response action', action);
         return {
           ...state,
           fetching: false,

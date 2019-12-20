@@ -1,26 +1,31 @@
 import {
     FETCH_SELLING_BILL_DETAIL_SUCCESS,
     FETCH_SELLING_BILL_DETAIL_FAILURE,
+    FETCH_SELLING_TRANSACTION_SUCCESS,
+    FETCH_SELLING_TRANSACTION_FAILURE,
     UPDATE_SELLING_BILL_STATUS_SUCCESS,
     UPDATE_SELLING_BILL_STATUS_FAILURE,
+    ADD_TRANSACTION_SUCCCESS,
+    ADD_TRANSACRTION_FAILURE,
     RESET_FORM,
   } from './SellingBillDetailAction';
   
   
   const initialState = {
     sellingBillDetails: [],
+    transactions: [],
     customerName: '',
     customerPhone: '',
     fetching: false,
     fetched: false,
     totalBill: 0,
     totalPaid: 0,
+    amountTrans: 0
   };
   
   export default function (state = initialState, action) {
     switch (action.type) {
       case FETCH_SELLING_BILL_DETAIL_SUCCESS:
-        console.log('selling bill detail', action.sellingBillDetail.selling_bill_detail);
         return {
           ...state,
           fetching: false,
@@ -38,6 +43,27 @@ import {
           error: action.error
         };
       
+      case ADD_TRANSACTION_FAILURE:
+        return {
+          ...state,
+          error: action.error
+        };
+
+      case FETCH_SELLING_TRANSACTION_SUCCESS:
+        return {
+          ...state,
+          fetching: false,
+          fetched: true,
+          transactions: action.transactions.transactions
+        };
+  
+      case FETCH_SELLING_TRANSACTION_FAILURE:
+        return {
+          ...state,
+          error: action.error
+        };
+        
+
       case UPDATE_SELLING_BILL_STATUS_SUCCESS:
         return {
           ...state,

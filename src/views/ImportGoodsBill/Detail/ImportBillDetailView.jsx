@@ -2,37 +2,16 @@ import React from "react";
 import { displayMessage } from '../../../components/Snackbar/SnackbarActions.js';
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import MaterialTable from 'material-table';
 import Grid from '@material-ui/core/Grid';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import FormControl from '@material-ui/core/FormControl';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
-import SearchIcon from '@material-ui/icons/Search';
-import Chip from '@material-ui/core/Chip';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
-
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import Carousel from 'react-bootstrap/Carousel'
-
-import Snackbar from "../../../components/Snackbar/Snackbar.js";
-import ImageList from "../../../components/ImageList/ImageList.js";
 
 import {
   WAREHOUSE_STAFF,
@@ -129,11 +108,11 @@ export default function ImportBillDetailView(props) {
                     <TableCell component="th" scope="row">
                       {i + 1}
                     </TableCell>
-                    <TableCell align="right">{row.product_name}</TableCell>
-                    <TableCell align="right">{row.product_unit}</TableCell>
-                    <TableCell align="right">{row.IGD_quantity}</TableCell>
-                    <TableCell align="right">{row.IGD_unit_price}</TableCell>
-                    <TableCell align="right">{row.IGD_quantity * row.IGD_unit_price}</TableCell>
+                    <TableCell align="right">{row.product.name}</TableCell>
+                    <TableCell align="right">{row.product.price}</TableCell>
+                    <TableCell align="right">{row.quantity}</TableCell>
+                    <TableCell align="right">{row.product.unit}</TableCell>
+                    <TableCell align="right">{row.quantity * row.product.price}</TableCell>
                   </TableRow>
                 ))}
                  {/* <TableRow>
@@ -233,11 +212,11 @@ export default function ImportBillDetailView(props) {
                     <TableCell component="th" scope="row">
                       {i + 1}
                     </TableCell>
-                    <TableCell align="right">{row.product_name}</TableCell>
-                    <TableCell align="right">{row.product_unit}</TableCell>
-                    <TableCell align="right">{row.IGD_quantity}</TableCell>
-                    <TableCell align="right">{row.IGD_unit_price}</TableCell>
-                    <TableCell align="right">{row.IGD_quantity * row.IGD_unit_price}</TableCell>
+                    <TableCell align="right">{row.product.name}</TableCell>
+                    <TableCell align="right">{row.product.price}</TableCell>
+                    <TableCell align="right">{row.quantity}</TableCell>
+                    <TableCell align="right">{row.product.unit}</TableCell>
+                    <TableCell align="right">{row.quantity * row.product.price}</TableCell>
                   </TableRow>
                 ))}
                  {/* <TableRow>
