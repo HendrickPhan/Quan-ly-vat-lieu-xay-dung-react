@@ -12,15 +12,15 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {getUserRole} from '../../../routes/UserRoleStatic';
 
 import {
   WAREHOUSE_STAFF,
-  ADMIN_USER,
-  BUSSINESS_STAFF,
-  userRole
-} from '../../SellingBill/SellingBillAction';
-
-
+  ADMIN,
+  BUSINESS_STAFF,
+  ASSISTANT,
+  AGENCY_MANAGER,
+} from '../../../routes/UserRoleStatic';
 
 const billStyles = makeStyles(theme => ({
     root: {
@@ -69,7 +69,8 @@ const billStyles = makeStyles(theme => ({
 
 export default function ImportBillDetailView(props) {
     const classes = billStyles();
-    switch(5){
+    const userRole = getUserRole();
+    switch(userRole){
       default:
         return (
           <Paper className={classes.root}>

@@ -61,7 +61,7 @@ const _loginUser = (email, password) => {
 }
 
 export const logoutUser = () => {
-  localStorage.removeItem('user_infor');
+  localStorage.removeItem('user_info');
 }
 
 const handleResponse = (response) => {

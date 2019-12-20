@@ -15,16 +15,16 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {getUserRole} from '../../../routes/UserRoleStatic';
+
 import {
   WAREHOUSE_STAFF,
-  ADMIN_USER,
-  BUSSINESS_STAFF,
-} from '../SellingBillAction';
+  ADMIN,
+  BUSINESS_STAFF,
+  ASSISTANT,
+  AGENCY_MANAGER,
+} from '../../../routes/UserRoleStatic';
 
-var userRole = 4;
-// if(JSON.parse(localStorage.getItem('user_info'))) {
-//   userRole =  JSON.parse(localStorage.getItem('user_info')).user.role;
-// }
 
 const billStyles = makeStyles(theme => ({
     root: {
@@ -85,6 +85,7 @@ const billStyles = makeStyles(theme => ({
 
 export default function SellingBillDetailView(props) {
     const classes = billStyles();
+    const userRole = getUserRole();
     const tableOption = {
       actionsColumnIndex: 100,
       headerStyle: {
@@ -106,7 +107,7 @@ export default function SellingBillDetailView(props) {
       setOpen(false);
     };
 
-    switch(4){
+    switch(userRole){
       default:
         return (
           <Paper className={classes.root}>
@@ -325,7 +326,7 @@ export default function SellingBillDetailView(props) {
         );
         break;
 
-      case BUSSINESS_STAFF: 
+      case BUSINESS_STAFF: 
         return (
           <Paper className={classes.root}>
             <Grid item xs={12} sm={12}>
