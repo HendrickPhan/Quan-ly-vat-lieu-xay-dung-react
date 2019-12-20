@@ -73,7 +73,7 @@ export default function LoginView(props) {
                             id="email"
                             label="Email"
                             className={classes.textField}
-                            type="email""
+                            type="email"
                             name="email"
                             onChange={props.handleChange}
                         />
