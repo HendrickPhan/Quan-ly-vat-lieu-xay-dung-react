@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ProductView(props) {
     const classes = useStyles();
-
+    console.log('virew', props);
     const tableOption = {
         actionsColumnIndex: 100,
         headerStyle: {

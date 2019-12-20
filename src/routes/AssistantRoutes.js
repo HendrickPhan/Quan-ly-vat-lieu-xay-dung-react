@@ -133,15 +133,7 @@ const dashboardRoutes = [
     layout: "/admin",
     display: false,
     exact: false
-  },
-  // {
-  //   path: "/angency",
-  //   name: "Đại Lý",
-  //   icon: "content_paste",
-  //   component: TableList,
-  //   layout: "/admin"
-  // },
-  
+  },  
 ];
 
 export default dashboardRoutes;

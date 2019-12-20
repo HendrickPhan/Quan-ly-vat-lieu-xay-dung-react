@@ -40,6 +40,7 @@ class Product extends React.Component {
       fetchProducts: (currentPage, perPage) => nextProps.fetchProducts(currentPage, perPage),
       products: nextProps.products
     });
+    console.log('next props', nextProps);
   }
 
   onEditClickHandle(id){

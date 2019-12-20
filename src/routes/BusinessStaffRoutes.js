@@ -34,12 +34,13 @@ import AgencyForm from "views/Agency/AgencyForm/AgencyForm.js"
 import Customer from 'views/Customer/Customer.js';
 import CustomerForm from 'views/Customer/CustomerForm/CustomerForm.js';
 
-import Vendor from 'views/Vendor/Vendor.js';
-import VendorForm from 'views/Vendor/VendorForm/VendorForm.js';
-
-import User from 'views/User/User.js';
-import UserForm from 'views/User/UserForm/UserForm.js';
-
+import SellingBill from 'views/SellingBill/SellingBill';
+import SellingBillList from 'views/SellingBill/SellingList/SellingList';
+import SellingBillDetail from 'views/SellingBill/SellingBillDetail/SellingBillDetail.js';
+import AddImportBill from 'views/ImportGoodsBill/ImportGoodsBill';  
+import ListImportBill from 'views/ImportGoodsBill/List/ListImportBill.js'
+import ImportBillDetail from 'views/ImportGoodsBill/Detail/ImportBillDetail.js';
+ 
 const dashboardRoutes = [
   {
     path: "/dashboard",
@@ -66,7 +67,60 @@ const dashboardRoutes = [
     display: false,
     exact: false
   },
-  
+  {
+    path: "/selling-bill",
+    name: "Hóa đơn bán hàng",
+    icon: "content_paste",
+    component: SellingBillList,
+    layout: "/admin",
+    display: true,
+    exact: true
+  },
+  {
+    path: "/selling-bill/:id",
+    name: "Chi tiết hóa đơn bán hàng",
+    icon: "content_paste",
+    component: SellingBillDetail,
+    layout: "/admin",
+    display: false,
+    exact: true
+  },
+  {
+    path: "/selling-bill/add",
+    name: "Hóa đơn bán hàng",
+    icon: "content_paste",
+    component: SellingBill,
+    layout: "/admin",
+    display: false,
+    exact: true
+  },
+  {
+    path: "/import-bill/add",
+    name: "Hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: AddImportBill,
+    layout: "/admin",
+    display: false,
+    exact: true
+  },
+  {
+    path: "/import-bill",
+    name: "Hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: ListImportBill,
+    layout: "/admin",
+    display: true,
+    exact: true
+  },
+  {
+    path: "/import-bill/:id",
+    name: "Chi tiết hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: ImportBillDetail,
+    layout: "/admin",
+    display: false,
+    exact: true
+  },
 ];
 
 export default dashboardRoutes;

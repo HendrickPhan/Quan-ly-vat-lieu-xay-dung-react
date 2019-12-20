@@ -22,19 +22,10 @@ import UserIcon from "@material-ui/icons/Person";
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
 
-import Category from "views/Category/Category.js";
-import CategoryForm from "views/Category/CategoryForm/CategoryForm.js";
-import Product from "views/Product/Product.js"
-import ProductForm from "views/Product/ProductForm/ProductForm.js"
-import Agency from "views/Agency/Agency.js"
-import AgencyForm from "views/Agency/AgencyForm/AgencyForm.js"
-import Customer from 'views/Customer/Customer.js';
-import CustomerForm from 'views/Customer/CustomerForm/CustomerForm.js';
-import Vendor from 'views/Vendor/Vendor.js';
-import VendorForm from 'views/Vendor/VendorForm/VendorForm.js';
-import User from 'views/User/User.js';
-import UserForm from 'views/User/UserForm/UserForm.js';
 import SellingBillList from 'views/SellingBill/SellingList/SellingList'
+import ListImportBill from 'views/ImportGoodsBill/List/ListImportBill.js'
+import ImportBillDetail from 'views/ImportGoodsBill/Detail/ImportBillDetail.js';
+import SellingBillDetail from 'views/SellingBill/SellingBillDetail/SellingBillDetail.js';
 
 const dashboardRoutes = [
   {
@@ -53,6 +44,34 @@ const dashboardRoutes = [
     display: true,
     exact: true
   },
+  {
+    path: "/selling-bill/:id",
+    name: "Chi tiết hóa đơn bán hàng",
+    icon: "content_paste",
+    component: SellingBillDetail,
+    layout: "/admin",
+    display: false,
+    exact: true
+  },
+  {
+    path: "/import-bill",
+    name: "Hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: ListImportBill,
+    layout: "/admin",
+    display: true,
+    exact: true
+  },
+  {
+    path: "/import-bill/:id",
+    name: "Chi tiết hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: ImportBillDetail,
+    layout: "/admin",
+    display: false,
+    exact: true
+  },
+  
 ];
 
 export default dashboardRoutes;

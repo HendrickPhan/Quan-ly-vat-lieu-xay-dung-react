@@ -19,6 +19,7 @@ const initialState = {
     categories: [],
     images: [],
     fetchedImages: [],
+    import_price: null
   },
   deleteImages: [],
   productSelectList: [],

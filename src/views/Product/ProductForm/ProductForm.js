@@ -48,7 +48,7 @@ class ProductForm extends React.Component {
   //------------------- event functions 
   handleSubmit(e) {
     e.preventDefault();
-    let data = (({ name, price, unit, images }) => ({ name, price, unit, images }))(this.state.product);
+    let data = (({ name, price, unit, images, import_price }) => ({ name, price, unit, images, import_price }))(this.state.product);
     let categories = this.state.product.categories.map(category => category.id);
     data.categories = categories;
     if (this.state.product.id) {

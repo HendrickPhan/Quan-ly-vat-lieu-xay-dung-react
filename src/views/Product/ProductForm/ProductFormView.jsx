@@ -144,10 +144,23 @@ export default function ProductFormView(props) {
                             required
                             id="price"
                             name="price"
-                            label="Giá"
+                            label="Giá bán"
                             fullWidth
                             type="number"
                             value={props.product.price ? props.product.price : ''}
+                            onChange={(e) => props.handleInputChange(e)}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} sm={12}>
+                        <TextField
+                            required
+                            id="price"
+                            name="import_price"
+                            label="Giá nhập"
+                            fullWidth
+                            type="number"
+                            value={props.product.import_price ? props.product.import_price : ''}
                             onChange={(e) => props.handleInputChange(e)}
                         />
                     </Grid>

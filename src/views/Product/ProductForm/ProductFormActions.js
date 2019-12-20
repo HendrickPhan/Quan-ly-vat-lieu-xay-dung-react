@@ -104,6 +104,7 @@ export const editProduct = (id, data) => {
 }
 
 export const addProduct = (data) => {
+  console.log('data', data);
   return dispatch => {
     dispatch(fetchProductBegin());
     return _addProduct(data)
@@ -183,7 +184,7 @@ const _addProduct= (data) => {
 
   formData.append("price", data.price);
   formData.append("unit", data.unit);
-
+  formData.append("import_price", data.import_price);
   data.categories.map(category => {
     formData.append("categories[]", category);
   })
