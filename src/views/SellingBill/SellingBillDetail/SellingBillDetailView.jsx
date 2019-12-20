@@ -459,7 +459,7 @@ export default function SellingBillDetailView(props) {
             >
               <div className={classes.paper}>
                 <h2 id="simple-modal-title">Thanh toán</h2>
-                <form noValidate autoComplete="off" onSubmit={(e) => props.handleAddTransaction(e)}>
+                <form autoComplete="off" onSubmit={(e) => props.handleAddTransaction(e)}>
                   <input 
                     type="number" 
                     name ="amount" 

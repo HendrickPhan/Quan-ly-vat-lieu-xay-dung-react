@@ -55,7 +55,7 @@ export default function VendorFormView(props) {
     
     return (
         <Paper className={classes.root}>
-            <form noValidate autoComplete="off" onSubmit={(e) => props.handleSubmit(e)}>
+            <form autoComplete="off" onSubmit={(e) => props.handleSubmit(e)}>
                 <Grid container spacing={3}>
                     {idField}
                     <Grid item xs={12} sm={12}>
