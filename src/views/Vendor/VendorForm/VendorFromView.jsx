@@ -97,6 +97,7 @@ export default function VendorFormView(props) {
                             id="email"
                             name="email"
                             label="Email"
+                            type="email"
                             fullWidth
                             value={props.vendor.email ? props.vendor.email : ''}
                             onChange={(e) => props.handleChange(e)}
