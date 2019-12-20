@@ -1,7 +1,7 @@
 import React from "react";
 // react-redux components
 import { connect } from 'react-redux';
-import { fetchUser, editUser, addUser, reset } from './UserFormActions';
+import { fetchUser, editUser, addUser, reset, fetchAgency } from './UserFormActions';
 // react-router-doom components
 import { generatePath } from "react-router";
 
@@ -14,9 +14,6 @@ class UserForm extends React.Component {
   constructor(props) {
     super(props);
 
-    // reset login status
-    // this.props.logout();
-
     this.state = {
       user: {
         id: null,
@@ -24,11 +21,42 @@ class UserForm extends React.Component {
         address: '',
         phone: '',
         email: '',
-        in_debt_amount: 0
+        in_debt_amount: 0,
+        avatar: '',
+        role:{'id': 0, 'name': 'Admin'},
+        agency_id: 0,
+        password: '',
+        retype_psw: '',
       },
+      roles: [
+        {
+          'id': 0,
+          'name': 'Admin'
+        },
+        {
+          'id':1,
+          'name': 'manager'
+        },
+        {
+          'id':2,
+          'name': 'assistant Staff'
+        },
+        {
+          'id':3,
+          'name': 'Agency Manager'
+        },
+        {
+          'id':4,
+          'name': 'Bussiness Staff'
+        },
+        {
+          'id':5,
+          'name': 'Warehouse Staff'
+        }
+      ],
+      agencies: []
     };
   }
-
 
   handleChange(e) {
     const { name, value } = e.target;
@@ -38,12 +66,21 @@ class UserForm extends React.Component {
         [name]: value
       }
     }));
-
   }
 
+  handleImagesChange = e => {
+    const { files } = e.target;
+
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        avatar: files
+      }
+    }));
+  }
   handleSubmit(e) {
     e.preventDefault();
-    let data = (({ name, address, phone }) => ({ name, address, phone }))(this.state.user);
+    let data = (({ name, address,role, phone, email, password, retype_psw }) => ({ name, address, role, phone, email, password, retype_psw }))(this.state.user);
     
     if(this.state.user.id){
       this.props.editUser(this.state.user.id, data);
@@ -51,15 +88,14 @@ class UserForm extends React.Component {
     else {
       const { history } = this.props;
       this.props.addUser(data).then( user => {
-        history.push({
-          pathname: generatePath(this.props.match.path, {id: user.id})
-        });
-        this.props.fetchUser(user.id);
+        // history.push({
+        //   pathname: generatePath(this.props.match.path, {id: user.id})
+        // });
+        // this.props.fetchUser(user.id);
 
       }); 
     } 
   }
-
 
   componentDidMount() {
     if (this.props.match.params.id != 'add') {
@@ -67,7 +103,9 @@ class UserForm extends React.Component {
     }
     else{
       this.props.reset();
-    }
+    } 
+    
+    this.props.fetchAgency();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -78,10 +116,26 @@ class UserForm extends React.Component {
       fetchUser: (id) => nextProps.fetchUser(id),
       editUser: (id, data) => nextProps.editUser(id, data),
       addUser: (data) => nextProps.addUser(data),
+      fetchAgency: () => nextProps.fetchAgency(),
+    
       reset: () =>  nextProps.reset(),
-      error: nextProps.error
+      error: nextProps.error,
+      agencies: nextProps.agencies
     });
   }
+
+  handleRoleChange = e => {
+    const { value, name } = e.target;
+    this.setState(prevState => ({
+      user: {
+        ...prevState.user,
+        role: value
+      }
+    }));
+
+    console.log('agency:', this.state);
+
+  };
 
   render() {
     if (this.props.error) {
@@ -103,16 +157,19 @@ class UserForm extends React.Component {
         user={this.state.user}
         handleChange={(e) => this.handleChange(e)}
         handleSubmit={(e) => this.handleSubmit(e)}
+        handleRoleChange={(e) => this.handleRoleChange(e)}
+        handleImagesChange={e => this.handleImagesChange(e)}
+        agencies={this.state.agencies}
       />
     );
   }
 }
 
-
 const mapState = state => ({
   fetching: state.userForm.fetching,
   fetched: state.userForm.fetched,
   user: state.userForm.user,
+  agencies: state.userForm.agencies,
   error: state.userForm.error
 });
 
@@ -121,8 +178,11 @@ const mapDispatchToProps = (dispatch) => {
     fetchUser: (id) => dispatch(fetchUser(id)),
     editUser: (id, data) => dispatch(editUser(id, data)),
     addUser: (data) => dispatch(addUser(data)),
+    fetchAgency: () => dispatch(fetchAgency()),
     reset: () => dispatch(reset())
   };
 }
+
+
 
 export default connect(mapState, mapDispatchToProps)(UserForm);

@@ -24,6 +24,7 @@ export default function (state = initialState, action) {
         fetching: true,
       };
     case FETCH_PRODUCTS_SUCCESS:
+      console.log('action', action);
       return {
         ...state,
         fetching: false,

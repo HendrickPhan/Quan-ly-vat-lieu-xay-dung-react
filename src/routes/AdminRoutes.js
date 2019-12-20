@@ -17,6 +17,7 @@
 */
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
+import UserIcon from "@material-ui/icons/Person";
 
 // core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.js";
@@ -39,8 +40,14 @@ import VendorForm from 'views/Vendor/VendorForm/VendorForm.js';
 import User from 'views/User/User.js';
 import UserForm from 'views/User/UserForm/UserForm.js';
 
-import SellingBillForm from 'views/SellingBill/SellingBillForm/SellingBillForm.js';
+import SellingBill from 'views/SellingBill/SellingBill';
+import SellingBillList from 'views/SellingBill/SellingList/SellingList';
+import SellingBillDetail from 'views/SellingBill/SellingBillDetail/SellingBillDetail.js';
 
+import AddImportBill from 'views/ImportGoodsBill/ImportGoodsBill';  
+import ListImportBill from 'views/ImportGoodsBill/List/ListImportBill.js'
+import ImportBillDetail from 'views/ImportGoodsBill/Detail/ImportBillDetail.js';
+ 
 const dashboardRoutes = [
   {
     path: "/dashboard",
@@ -158,21 +165,59 @@ const dashboardRoutes = [
     exact: false
   },
   {
-    path: "/selling-bill/:id",
-    name: "Form Nhân Viên",
+    path: "/selling-bill/add",
+    name: "Hóa đơn bán hàng",
     icon: "content_paste",
-    component: SellingBillForm,
+    component: SellingBill,
     layout: "/admin",
     display: false,
-    exact: false
+    exact: true
   },
-  // {
-  //   path: "/angency",
-  //   name: "Đại Lý",
-  //   icon: "content_paste",
-  //   component: TableList,
-  //   layout: "/admin"
-  // },
+  {
+    path: "/selling-bill",
+    name: "Hóa đơn bán hàng",
+    icon: "content_paste",
+    component: SellingBillList,
+    layout: "/admin",
+    display: true,
+    exact: true
+  },
+  {
+    path: "/selling-bill/:id",
+    name: "Chi tiết hóa đơn bán hàng",
+    icon: "content_paste",
+    component: SellingBillDetail,
+    layout: "/admin",
+    display: false,
+    exact: true
+  },
+  {
+    path: "/import-bill/add",
+    name: "Hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: AddImportBill,
+    layout: "/admin",
+    display: false,
+    exact: true
+  },
+  {
+    path: "/import-bill",
+    name: "Hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: ListImportBill,
+    layout: "/admin",
+    display: true,
+    exact: true
+  },
+  {
+    path: "/import-bill/:id",
+    name: "Chi tiết hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: ImportBillDetail,
+    layout: "/admin",
+    display: false,
+    exact: true
+  },
   
 ];
 

@@ -1,7 +1,6 @@
 import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import MaterialTable from 'material-table';
 import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
@@ -10,23 +9,21 @@ import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
 import SearchIcon from '@material-ui/icons/Search';
-import Chip from '@material-ui/core/Chip';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-
-
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import Carousel from 'react-bootstrap/Carousel'
-
-import Snackbar from "../../../components/Snackbar/Snackbar.js";
-import ImageList from "../../../components/ImageList/ImageList.js";
+import Carousel from 'react-bootstrap/Carousel';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Badge from '@material-ui/core/Badge';
+import Box from '@material-ui/core/Box';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -42,7 +39,10 @@ const useStyles = makeStyles(theme => ({
     },
     appBar: {
         top: 'auto',
-        bottom: 0
+        bottom: 0,
+        right: 0,
+        width: 'calc(100% - 276px)'
+         
     },
     nextBtn: {
         width: 'fit-content',
@@ -50,11 +50,17 @@ const useStyles = makeStyles(theme => ({
         right: 0
     }
 }));
+const StyledBadge1 = withStyles(theme => ({
+    badge: {
+      right: -3,
+      border: `2px solid ${theme.palette.background.paper}`,
+      padding: '0 4px',
+    },
+  }))(Badge);
+  
 
-
-export default function SellingBillFormView(props) {
+export default function Step1View(props) {
     const classes = useStyles();
-
     return (
         <Paper className={classes.root}>
             <FormControl fullWidth>
@@ -64,19 +70,19 @@ export default function SellingBillFormView(props) {
                         <Select
                             labelid="categories-select-label"
                             id="categories-select"
-                            value=""
-                            // value={this.props.categories.map(category => category.id)}
+                            //value=""
+                            value={props.currentCategory ? props.currentCategory.id: 1}
                             name="categories"
-                            // onChange={props.handleCategorySelectChange}
+                            onChange={props.handleCategorySelectChange}
                             fullWidth
                         >
                             <MenuItem value={null}>
                                 <em>None</em>
                             </MenuItem>
-                            {props.categories.map(prop => {
+                            {props.categories.map(category => {
                                 // if (prop.id !== props.product.id) {
                                 return (
-                                    <MenuItem value={prop.id} key={prop.id} >{prop.name}</MenuItem>
+                                    <MenuItem value={category.id} key={category.id} >{category.name}</MenuItem>
                                 )
                                 // }
                             })}
@@ -87,11 +93,11 @@ export default function SellingBillFormView(props) {
                         <TextField
                             required
                             id="name"
-                            name="name"
+                            name="keyword"
                             label="Tên sản phẩm"
                             fullWidth
-                            value={props.keyword ? props.keyword : ''}
-                        // onChange={(e) => props.handleInputChange(e)}
+                            value={props.keyword !== null ? props.keyword : ''}
+                            onChange={(e) => props.handleKeywordChange(e)}
                         />
                     </Grid>
                     <Grid item xs={6} sm={6}>
@@ -129,14 +135,7 @@ export default function SellingBillFormView(props) {
                                                 </Carousel.Item>
                                             )
                                         })}
-                                    </Carousel>
-
-
-                                    {/* <CardMedia
-                                        className={classes.media}
-                                        image="/static/images/cards/contemplative-reptile.jpg"
-                                        title="Contemplative Reptile"
-                                    /> */}
+                                    </Carousel> 
                                     <CardContent>
                                         <Typography gutterBottom color="textSecondary" variant="h5" component="h2">
                                             {product.name}
@@ -155,11 +154,17 @@ export default function SellingBillFormView(props) {
                                         name="quantity"
                                         label="Số lượng"
                                         type="number"
-                                        value={product.price ? product.price : ''}
-                                        // onChange={(e) => props.handleInputChange(e)}
+                                        inputProps={{ min: "0", max: "8888"}}
+                                        value={(product.quantity !== undefined) ? product.quantity : 0}
+                                        onChange={(value) => props.handleQuantityChange(value, product)}
                                     />
-                                    <Button size="small" variant="contained" color="primary">
-                                        Thêm vào hóa đơn
+                                    <Button 
+                                        size="small" 
+                                        variant="contained" 
+                                        color="primary"
+                                        onClick={(e) => props.handleAddProduct(e, product)}
+                                    >
+                                        Thêm sản phẩm
                                     </Button>
                                 </CardActions>
                             </Card>
@@ -167,10 +172,43 @@ export default function SellingBillFormView(props) {
                     )
                 })}
             </Grid>
-
+            <Grid item xs={12} sm={12}>
+                <InputLabel id="demo-simple-select-label">Nhà cung cấp</InputLabel>
+                <Select
+                    labelid="demo-simple-select-label"
+                    id="demo-simple-select"
+                    // value={product.vendor_id ? props.vendor_id : ''}
+                    name="parent_id"
+                    onChange={(e) => props.handleVendorChange(e)}
+                    fullWidth
+                >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    {props.vendors.map(vendor => {
+                        //if(vendor.id === product.vendor_id){
+                            return (
+                                <MenuItem value={vendor.id} key={vendor.id} >{vendor.name}</MenuItem>
+                            )
+                        //}
+                    })}
+                </Select>
+            </Grid>
             <AppBar position="fixed" className={classes.appBar} color="default">
                 <Toolbar>
-                    <Button size="small" variant="contained" color="primary" className={classes.nextBtn}>
+                    <Box m={1}>
+                        <IconButton aria-label="cart">
+                        <StyledBadge1 badgeContent={ props.importBillDetail ? props.importBillDetail.length : 0 } color="primary">
+                            <ShoppingCartIcon />
+                        </StyledBadge1>
+                        </IconButton>
+                    </Box>
+                    <Button 
+                        size="small" 
+                        variant="contained" 
+                        color="primary"
+                        onClick = { (e) => props.moveNextStep(e) }  
+                        className={classes.nextBtn}>
                         Tiếp tục
                     </Button>
                 </Toolbar>

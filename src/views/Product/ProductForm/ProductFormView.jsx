@@ -13,7 +13,6 @@ import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
 import SaveIcon from '@material-ui/icons/Save';
 import Chip from '@material-ui/core/Chip';
-
 import Snackbar from "../../../components/Snackbar/Snackbar.js";
 import ImageList from "../../../components/ImageList/ImageList.js";
 // react-redux components
@@ -120,11 +119,9 @@ export default function ProductFormView(props) {
                                     <em>None</em>
                                 </MenuItem>
                                 {props.categorySelectList.map(prop => {
-                                    if (prop.id !== props.product.id) {
-                                        return (
-                                            <MenuItem value={prop.id} key={prop.id} >{prop.name}</MenuItem>
-                                        )
-                                    }
+                                    return (
+                                        <MenuItem value={prop.id} key={prop.id} >{prop.name}</MenuItem>
+                                    )
                                 })}
                             </Select>
                         </FormControl>
@@ -147,10 +144,23 @@ export default function ProductFormView(props) {
                             required
                             id="price"
                             name="price"
-                            label="Giá"
+                            label="Giá bán"
                             fullWidth
                             type="number"
                             value={props.product.price ? props.product.price : ''}
+                            onChange={(e) => props.handleInputChange(e)}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12} sm={12}>
+                        <TextField
+                            required
+                            id="price"
+                            name="import_price"
+                            label="Giá nhập"
+                            fullWidth
+                            type="number"
+                            value={props.product.import_price ? props.product.import_price : ''}
                             onChange={(e) => props.handleInputChange(e)}
                         />
                     </Grid>

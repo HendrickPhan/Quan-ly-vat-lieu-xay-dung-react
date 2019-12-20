@@ -6,10 +6,16 @@ export const FETCH_USER_FAILURE = 'FETCH_USER_FAILURE';
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAILURE = 'EDIT_USER_FAILURE';
 export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
-export const ADD_USER_FAILURE = 'ADD_USER_FAILURE';
+export const ADD_USER_FAILURE = 'ADD_USER_FAILURE';                                     
+export const FETCH_USER_FORM_AGENCY_BEGIN = 'FETCH_USER_FORM_AGENCY_BEGIN';
+export const FETCH_USER_FORM_AGENCY_SUCCESS = 'FETCH_USER_FORM_AGENCY_SUCCESS';
+export const FETCH_USER_FORM_AGENCY_FAILURE = 'FETCH_USER_FORM_AGENCY_FAILURE';
 export const RESET_FORM = 'RESET_FORM';
 
-
+var token = "";
+if(JSON.parse(localStorage.getItem('user_info'))) {
+  token = "Bearer " + JSON.parse(localStorage.getItem('user_info')).token;
+}
 export const fetchUserBegin = () => ({
   type: FETCH_USER_BEGIN
 });
@@ -44,6 +50,20 @@ export const addUserFailure = error => ({
   error
 });
 
+export const fetchAgencyBegin = () => ({
+  type: FETCH_USER_FORM_AGENCY_BEGIN
+});
+
+export const fetchAgencySuccess = agencies => ({
+  type: FETCH_USER_FORM_AGENCY_SUCCESS,
+  agencies
+});
+
+export const fetchAgencyFailure = error => ({
+  type: FETCH_USER_FORM_AGENCY_FAILURE,
+  error
+});
+
 export const resetForm = () => ({
   type: RESET_FORM
 });
@@ -52,6 +72,20 @@ export const reset = () => {
   return dispatch => {
     dispatch(resetForm());
   }
+}
+
+export const fetchAgency = () => {
+  return dispatch => {
+    dispatch(fetchAgencyBegin());
+    return _getAgencyList()
+      .then(agencies => {
+        dispatch(fetchAgencySuccess(agencies));
+        return agencies;
+      })
+      .catch(error =>
+        dispatch(fetchAgencyFailure(error))
+      );
+  };
 }
 
 export const fetchUser = (id) => {
@@ -111,7 +145,7 @@ const _getUser = (id) => {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU3MzQ0NzE0NSwiZXhwIjozNjE1NzM0NDcxNDUsIm5iZiI6MTU3MzQ0NzE0NSwianRpIjoiNnNlSHJGSjNHeXp3QzVLVyIsInN1YiI6MSwicHJ2IjoiZjkzMDdlYjVmMjljNzJhOTBkYmFhZWYwZTI2ZjAyNjJlZGU4NmY1NSJ9.IDR5-rQKJ0hRYRo2UNBtQe8AQras7CJzjgadsnzQ4HU'
+      'Authorization': token
     },
   };
   return fetch(process.env.REACT_APP_API_URL + `/user/` + id, requestOptions)
@@ -129,7 +163,7 @@ const _editUser = (id, data) => {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU3MzQ0NzE0NSwiZXhwIjozNjE1NzM0NDcxNDUsIm5iZiI6MTU3MzQ0NzE0NSwianRpIjoiNnNlSHJGSjNHeXp3QzVLVyIsInN1YiI6MSwicHJ2IjoiZjkzMDdlYjVmMjljNzJhOTBkYmFhZWYwZTI2ZjAyNjJlZGU4NmY1NSJ9.IDR5-rQKJ0hRYRo2UNBtQe8AQras7CJzjgadsnzQ4HU'
+      'Authorization': token
     },
     body: JSON.stringify(data)
   };
@@ -146,7 +180,7 @@ const _addUser= (data) => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC8xMjcuMC4wLjE6ODAwMFwvYXBpXC9hdXRoXC9sb2dpbiIsImlhdCI6MTU3MzQ0NzE0NSwiZXhwIjozNjE1NzM0NDcxNDUsIm5iZiI6MTU3MzQ0NzE0NSwianRpIjoiNnNlSHJGSjNHeXp3QzVLVyIsInN1YiI6MSwicHJ2IjoiZjkzMDdlYjVmMjljNzJhOTBkYmFhZWYwZTI2ZjAyNjJlZGU4NmY1NSJ9.IDR5-rQKJ0hRYRo2UNBtQe8AQras7CJzjgadsnzQ4HU'
+      'Authorization': token
     },
     body: JSON.stringify(data)
   };
@@ -154,17 +188,42 @@ const _addUser= (data) => {
   return fetch(process.env.REACT_APP_API_URL + `/user`, requestOptions)
     .then(handleResponse)
     .then(user => {
+      console.log('here', user);
       return user;
     });
 }
 
+const _getAgencyList = () => {
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    },
+  };
+
+  return fetch(process.env.REACT_APP_API_URL + `/agency/get-list`, requestOptions)
+    .then(handleResponse)
+    .then(agencies => {
+      // let formatedProduct = product;
+      // formatedProduct.fetchedImages = product.images; 
+      // formatedProduct.images = [];
+      //console.log(agencies.agencies);
+      return agencies.agencies;
+    });
+}
+
+
 const handleResponse = (response) => {
+  
   return response.text().then(text => {
     const data = text && JSON.parse(text);
     if (!response.ok) {
       const error = (data && data.message) || response.statusText;
+     
       return Promise.reject(error);
     }
+
     return data;
   })
 }

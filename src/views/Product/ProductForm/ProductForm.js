@@ -48,7 +48,7 @@ class ProductForm extends React.Component {
   //------------------- event functions 
   handleSubmit(e) {
     e.preventDefault();
-    let data = (({ name, price, unit, images }) => ({ name, price, unit, images }))(this.state.product);
+    let data = (({ name, price, unit, images, import_price }) => ({ name, price, unit, images, import_price }))(this.state.product);
     let categories = this.state.product.categories.map(category => category.id);
     data.categories = categories;
     if (this.state.product.id) {
@@ -143,9 +143,9 @@ class ProductForm extends React.Component {
         handleSubmit={e => this.handleSubmit(e)}
         handleInputChange={e => this.handleInputChange(e)}
         handleCategorySelectChange={e => this.handleCategorySelectChange(e)}
-        handleImagesChange={this.handleImagesChange}
-        handleImageRestoreClick={this.handleImageRestoreClick}
-        handleImageDeleteClick={this.handleImageDeleteClick}
+        handleImagesChange={e => this.handleImagesChange(e)}
+        handleImageRestoreClick={e => this.handleImageRestoreClick(e)}
+        handleImageDeleteClick={e => this.handleImageDeleteClick(e)}
       />
     );
   }

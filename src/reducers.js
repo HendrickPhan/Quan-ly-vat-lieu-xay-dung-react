@@ -13,8 +13,13 @@ import VendorReducer from './views/Vendor/VendorReducer';
 import VendorFormReducer from './views/Vendor/VendorForm/VendorFormReducer';
 import UserReducer from './views/User/UserReducer';
 import UserFormReducer from './views/User/UserForm/UserFormReducer';
-import SellingBillFormReducer from './views/SellingBill/SellingBillForm/SellingBillFormReducer';
+import SellingBillFormReducer from './views/SellingBill/SellingBillReducer';
+import SellingBillReducer from './views/SellingBill/SellingList/SellingListReducer';
+import SellingBillDetailReducer from './views/SellingBill/SellingBillDetail/SellingBillDetailReducer';
 
+import ImportBillFormReducer from './views/ImportGoodsBill/ImportGoodsBillReducer';
+import ListImportBillReducer from './views/ImportGoodsBill/List/ListImportBillReducer';
+import ImportBillDetailReducer from './views/ImportGoodsBill/Detail/ImportBillDetailReducer';
 export default combineReducers({
     login: LoginReducer,
     snackbar: SnackbarReducer,
@@ -37,6 +42,12 @@ export default combineReducers({
     user: UserReducer,
     userForm: UserFormReducer,
 
-    sellingBillForm: SellingBillFormReducer
+    sellingBillForm: SellingBillFormReducer,
+    sellingBill: SellingBillReducer,
+    sellingBillDetail: SellingBillDetailReducer,
+
+    importBillForm: ImportBillFormReducer,
+    listImportBill: ListImportBillReducer,
+    importBillDetail: ImportBillDetailReducer,
 });
 

@@ -6,7 +6,6 @@ import MaterialTable from 'material-table';
 import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -53,7 +52,7 @@ export default function CustomerView(props) {
                                 count={props.totalRows ? props.totalRows : 0}
                                 page={props.currentPage - 1}
                                 onChangePage={(e, page) => {
-                                    props.fetchAgencies(page + 1, props.perPage)
+                                    props.fetchCustomers(page + 1, props.perPage)
                                 }}
                                 onChangeRowsPerPage={event => {
                                     props.changePerPage(event.target.value);

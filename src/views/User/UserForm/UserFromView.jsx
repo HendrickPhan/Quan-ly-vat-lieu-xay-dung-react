@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import Paper from '@material-ui/core/Paper';
@@ -13,6 +14,8 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardMedia from '@material-ui/core/CardMedia';
 import Modal from '@material-ui/core/Modal';
+import Input from '@material-ui/core/Input';
+import Chip from '@material-ui/core/Chip';
 import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles(theme => ({
@@ -130,7 +133,6 @@ export default function UserFormView(props) {
                         <input
                                 type="file"
                                 style={{ display: "none" }}
-                                multiple
                                 onChange={(e) => props.handleImagesChange(e)}
                             />
                         </Button>
@@ -143,6 +145,59 @@ export default function UserFormView(props) {
                             value={imagesName}
                         />
                     </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Chức vụ</InputLabel>
+                            <Select id="role" name="role"
+                                value={props.user.role}
+                                onChange={(value) => props.handleRoleChange(value)}
+                            >
+                                <MenuItem value={0}>Admin</MenuItem>
+                                <MenuItem value={1}>Mananager</MenuItem>
+                                <MenuItem value={2}>Assistant Staff</MenuItem>
+                                <MenuItem value={3}>Agency Mananager</MenuItem>
+                                <MenuItem value={4}>Bussiness Staff</MenuItem>
+                                <MenuItem value={5}>Warehouse Staff</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    {/* <Grid item xs={12} sm={12}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Loại sản phẩm</InputLabel>
+                            <Select
+                                labelid="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={props.agencies.map(agency => agency.id)}
+                                name="agency_id"
+                                // onChange={props.handleCategorySelectChange}
+                                fullWidth
+                                multiple
+                                input={<Input id="agency_id" />}
+                                renderValue={selected => (
+                                    <div className={classes.chips}>
+                                        {selected.map(value => (
+                                            props.categorySelectList.map(category => {
+                                                if (category.id === value) {
+                                                    return (
+                                                        <Chip key={value} label={category.name} className={classes.chip} />
+                                                    )
+                                                }
+                                            })
+                                        ))}
+                                    </div>
+                                )}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                {props.categorySelectList.map(prop => {
+                                    return (
+                                        <MenuItem value={prop.id} key={prop.id} >{prop.name}</MenuItem>
+                                    )
+                                })}
+                            </Select>
+                        </FormControl>
+                    </Grid> */}
                     <Grid item xs={12} sm={12}>
                         <TextField
                             required
@@ -157,11 +212,46 @@ export default function UserFormView(props) {
                     <Grid item xs={12} sm={12}>
                         <TextField
                             required
+                            id="email"
+                            name="email"
+                            label="Email"
+                            fullWidth
+                            value={props.user.email ? props.user.email : ''}
+                            onChange={(e) => props.handleChange(e)}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <TextField
+                            required
                             id="phone"
                             name="phone"
                             label="Số điện thoại"
                             fullWidth
                             value={props.user.phone ? props.user.phone : ''}
+                            onChange={(e) => props.handleChange(e)}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <TextField
+                            required
+                            id="password"
+                            name="password"
+                            label="Password"
+                            type="password"
+                            fullWidth
+                            value={props.user.password ? props.user.password: ''}
+                            onChange={(e) => props.handleChange(e)}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={12}>
+                        <TextField
+                            required
+                            id="retype_psw"
+                            name="retype_psw"
+                            label="Nhập lại password"
+                            type="password"
+                            fullWidth
+                            value={props.retype_psw ? props.retype_psw: ''}
                             onChange={(e) => props.handleChange(e)}
                         />
                     </Grid>
