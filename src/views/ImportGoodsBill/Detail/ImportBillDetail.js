@@ -24,7 +24,10 @@ class ImportBillDetail extends React.Component {
   }
 
   componentDidMount() {    
-    this.props.fetchImportBillDetail(this.props.match.params.id);
+    if (this.props.match.params.id != 'add') {
+      this.props.fetchImportBillDetail(this.props.match.params.id);
+    }
+    //this.props.fetchImportBillDetail(this.props.match.params.id);
   }
 
   componentWillReceiveProps(nextProps) {

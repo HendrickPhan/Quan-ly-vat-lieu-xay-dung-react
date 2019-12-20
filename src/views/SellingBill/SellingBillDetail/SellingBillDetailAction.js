@@ -36,9 +36,9 @@ export const fetchSellingTransactionFailure = error => ({
 });
 
 //
-export const addTransactionSuccess = transactions => ({
+export const addTransactionSuccess = message => ({
   type: ADD_TRANSACTION_SUCCESS,
-  transactions
+  message
 });
 
 export const addTransactionFailure = error => ({
@@ -72,9 +72,12 @@ export const addSellingTransaction = (data) =>{
   return dispatch => {
     return _addTransaction(data)
       .then(response => {
-        // dispatch(addTransactionSuccess(data));
-        // return data;
-        console.log(response);
+       if(response.status){
+          dispatch(addTransactionSuccess(response.message));
+       }else{
+        dispatch(addTransactionFailure(response.message));
+       }
+        return data;
       })
       .catch(error =>
         dispatch(fetchSellingBillDetailFailure(error))
@@ -126,15 +129,19 @@ export const fetchSellingTransaction = (billId) => {
 }
 
 const _addTransaction = (data) => {
+  let formData = new FormData();
+  formData.append("selling_bill_id", data.selling_bill_id);
+  formData.append("amount", data.amount);
+
   const requestOptions = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       'Authorization': token
     },
+    body: formData
   };
 
-  return fetch(process.env.REACT_APP_API_URL + `/selling-bill/` + data, requestOptions)
+  return fetch(process.env.REACT_APP_API_URL + `/selling-transactions`, requestOptions)
     .then(handleResponse)
     .then(bill => {
       return bill;
@@ -167,7 +174,7 @@ const _getSellingTransactions = (id) => {
       'Authorization': token
     },
   };
-  return fetch(process.env.REACT_APP_API_URL + `/selling-transactions/?selling_bill_id=` + id, requestOptions)
+  return fetch(process.env.REACT_APP_API_URL + `/selling-transactions/` + id, requestOptions)
     .then(handleResponse)
     .then(transaction => {
       return transaction;

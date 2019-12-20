@@ -159,7 +159,7 @@ export default function Step1View(props) {
                                             Giá: <b>{product.price}</b>
                                         </Typography>
                                         <Typography variant="body1"  component="p">
-                                            Còn lại: <b>{product.price}</b>
+                                            Còn lại: <b>{product.agency_product ? product.agency_product : 0}</b>
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>

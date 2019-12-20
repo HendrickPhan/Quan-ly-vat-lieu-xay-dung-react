@@ -77,15 +77,6 @@ const dashboardRoutes = [
     exact: true
   },
   {
-    path: "/selling-bill/:id",
-    name: "Chi tiết hóa đơn bán hàng",
-    icon: "content_paste",
-    component: SellingBillDetail,
-    layout: "/admin",
-    display: false,
-    exact: true
-  },
-  {
     path: "/selling-bill/add",
     name: "Hóa đơn bán hàng",
     icon: "content_paste",
@@ -95,10 +86,10 @@ const dashboardRoutes = [
     exact: true
   },
   {
-    path: "/import-bill/add",
-    name: "Hóa đơn nhập hàng",
+    path: "/selling-bill/:id",
+    name: "Chi tiết hóa đơn bán hàng",
     icon: "content_paste",
-    component: AddImportBill,
+    component: SellingBillDetail,
     layout: "/admin",
     display: false,
     exact: true
@@ -110,6 +101,15 @@ const dashboardRoutes = [
     component: ListImportBill,
     layout: "/admin",
     display: true,
+    exact: true
+  },
+  {
+    path: "/import-bill/add",
+    name: "Hóa đơn nhập hàng",
+    icon: "content_paste",
+    component: AddImportBill,
+    layout: "/admin",
+    display: false,
     exact: true
   },
   {

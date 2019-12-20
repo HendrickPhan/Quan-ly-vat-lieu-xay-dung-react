@@ -35,6 +35,8 @@ import CustomerForm from 'views/Customer/CustomerForm/CustomerForm.js';
 
 import Vendor from 'views/Vendor/Vendor.js';
 import VendorForm from 'views/Vendor/VendorForm/VendorForm.js';
+import User from 'views/User/User.js';
+import UserForm from 'views/User/UserForm/UserForm.js';
 
 const dashboardRoutes = [
   {
@@ -134,6 +136,24 @@ const dashboardRoutes = [
     display: false,
     exact: false
   },  
+  {
+    path: "/user",
+    name: "Nhân Viên",
+    icon: "content_paste",
+    component: User,
+    layout: "/admin",
+    display: true,
+    exact: true
+  },
+  {
+    path: "/user/:id",
+    name: "Form Nhân Viên",
+    icon: "content_paste",
+    component: UserForm,
+    layout: "/admin",
+    display: false,
+    exact: false
+  },
 ];
 
 export default dashboardRoutes;

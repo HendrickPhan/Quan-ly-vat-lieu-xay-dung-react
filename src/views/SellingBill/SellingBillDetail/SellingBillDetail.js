@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { getUserRole } from '../../../routes/UserRoleStatic';
 import { Router, Route, Switch, Redirect } from "react-router-dom";
-import { fetchSellingBillDetail, updateSellingBillStatus, reset, fetchSellingTransaction } from './SellingBillDetailAction';
+import { fetchSellingBillDetail, updateSellingBillStatus, reset, fetchSellingTransaction, addSellingTransaction } from './SellingBillDetailAction';
 // react-router-doom components
 import { generatePath } from "react-router";
 
@@ -27,9 +27,7 @@ class SellingBillDetail extends React.Component {
     };
   }
 
-  componentDidMount() {
-    console.log(this.props.match.params.id);
-    
+  componentDidMount() {    
     this.props.fetchSellingBillDetail(this.props.match.params.id);
     this.props.fetchSellingTransaction(this.props.match.params.id);
   }
@@ -48,6 +46,7 @@ class SellingBillDetail extends React.Component {
       fetchSellingBillDetail: (id) => nextProps.fetchSellingBillDetail(id),
       fetchSellingTransaction: (id) => nextProps.fetchSellingTransaction(id),
       updateSellingBillStatus: (id) => nextProps.updateSellingBillStatus(id),
+      addSellingTransaction: (data) => nextProps.addSellingTransaction(data),
       reset: () => nextProps.reset(),
       error: nextProps.error
     });
@@ -64,7 +63,7 @@ class SellingBillDetail extends React.Component {
     data['amount'] = formData.get('amount');
     data['selling_bill_id'] = this.props.match.params.id;
     
-    console.log('e', data);
+    this.props.addSellingTransaction(data);
   }
   handleChangeAmount(e){
     alert(e.target.value);
@@ -134,6 +133,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchSellingBillDetail: (id) => dispatch(fetchSellingBillDetail(id)),
     fetchSellingTransaction: (id) => dispatch(fetchSellingTransaction(id)),
+    addSellingTransaction: (data) => dispatch(addSellingTransaction(data)),
     updateSellingBillStatus: (id) => dispatch(updateSellingBillStatus(id)),
     reset: () => dispatch(reset())
   };

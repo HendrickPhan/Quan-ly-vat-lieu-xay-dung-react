@@ -49,12 +49,18 @@ import {
           error: action.error
         };
 
+      case ADD_TRANSACTION_SUCCESS:
+        return {
+          ...state,
+          error: action.message
+        };
+
       case FETCH_SELLING_TRANSACTION_SUCCESS:
         return {
           ...state,
           fetching: false,
           fetched: true,
-          transactions: action.transactions.transactions
+          transactions: action.transactions
         };
   
       case FETCH_SELLING_TRANSACTION_FAILURE:

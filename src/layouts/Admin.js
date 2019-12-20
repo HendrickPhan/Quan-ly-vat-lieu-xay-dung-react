@@ -130,7 +130,7 @@ export default function Admin({ ...rest }) {
         routes={routes}
         logoText={"Công ty vật liệu ABC"}
         logo={logo}
-        logoLink={"http://meo.com"}
+        logoLink={"https://trello.com/b/dzONR25r/qu%E1%BA%A3n-l%C3%BD-v%E1%BA%ADt-li%E1%BB%87u-x%C3%A2y-d%E1%BB%B1ng"}
         image={image}
         handleDrawerToggle={handleDrawerToggle}
         open={mobileOpen}
