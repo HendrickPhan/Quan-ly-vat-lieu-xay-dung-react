@@ -23,7 +23,7 @@ import DashboardPage from "views/Dashboard/Dashboard.js";
 import SellingBill from 'views/SellingBill/SellingBill';
 import SellingBillList from 'views/SellingBill/SellingList/SellingList';
 import SellingBillDetail from 'views/SellingBill/SellingBillDetail/SellingBillDetail.js';
-import AddImportBill from 'views/ImportGoodsBill/ImportGoodsBill';  
+import AddImportBill from 'views/ImportGoodsBill/ImportGoodsBill.js';  
 import ListImportBill from 'views/ImportGoodsBill/List/ListImportBill.js'
 import ImportBillDetail from 'views/ImportGoodsBill/Detail/ImportBillDetail.js';
 import User from 'views/User/User.js';
@@ -59,24 +59,6 @@ const dashboardRoutes = [
     exact: false
   },
   {
-    path: "/customer/:id",
-    name: "Form Khách Hàng",
-    icon: "content_paste",
-    component: CustomerForm,
-    layout: "/admin",
-    display: false,
-    exact: false
-  },
-  {
-    path: "/selling-bill/add",
-    name: "Hóa đơn bán hàng",
-    icon: "content_paste",
-    component: SellingBill,
-    layout: "/admin",
-    display: false,
-    exact: true
-  },
-  {
     path: "/selling-bill",
     name: "Hóa đơn bán hàng",
     icon: "content_paste",
@@ -90,6 +72,15 @@ const dashboardRoutes = [
     name: "Chi tiết hóa đơn bán hàng",
     icon: "content_paste",
     component: SellingBillDetail,
+    layout: "/admin",
+    display: false,
+    exact: true
+  },
+  {
+    path: "/selling-bill/add",
+    name: "Hóa đơn bán hàng",
+    icon: "content_paste",
+    component: SellingBill,
     layout: "/admin",
     display: false,
     exact: true
@@ -110,7 +101,7 @@ const dashboardRoutes = [
     component: ImportBillDetail,
     layout: "/admin",
     display: false,
-    exact: true
+    exact: false
   },
   {
     path: "/import-bill/add",

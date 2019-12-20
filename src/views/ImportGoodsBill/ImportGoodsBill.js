@@ -27,6 +27,9 @@ class ImportBillForm extends React.Component {
   }
 
   componentDidMount() {
+    
+
+
     let { productListCurrentPage, productListPerPage } = this.props;
     let { keyword, category } = this.state;
     this.props.fetchProducts(productListCurrentPage, productListPerPage, keyword, category);

@@ -418,8 +418,8 @@ export default function SellingBillDetailView(props) {
             <Grid item xs={12} sm={12}>
               <MaterialTable
                     columns={[
-                        { title: 'Id', field: 'id', type: 'numeric', cellStyle: { textAlign: 'left' } },
-                        { title: 'Người thanh toán', field: 'name', cellStyle: { textAlign: 'left' } },
+                        { title: 'Mã chi tiết', field: 'id', type: 'numeric', cellStyle: { textAlign: 'left' } },
+                        { title: 'Người khởi tạo', field: 'selling_bills.user.name', cellStyle: { textAlign: 'left' } },
                         { title: 'Số tiền', field: 'amount', cellStyle: { textAlign: 'left' } },
                         { title: 'Ngày thanh toán', field: 'created_at', cellStyle: { textAlign: 'left' } },
                     ]}

@@ -40,7 +40,6 @@ import VendorForm from 'views/Vendor/VendorForm/VendorForm.js';
 import User from 'views/User/User.js';
 import UserForm from 'views/User/UserForm/UserForm.js';
 
-
 const dashboardRoutes = [
   {
     path: "/dashboard",
@@ -117,6 +116,24 @@ const dashboardRoutes = [
     name: "Form Nhà Cung Cấp",
     icon: "content_paste",
     component: VendorForm,
+    layout: "/admin",
+    display: false,
+    exact: false
+  },
+  {
+    path: "/user",
+    name: "Nhân Viên",
+    icon: "content_paste",
+    component: User,
+    layout: "/admin",
+    display: true,
+    exact: true
+  },
+  {
+    path: "/user/:id",
+    name: "Form Nhân Viên",
+    icon: "content_paste",
+    component: UserForm,
     layout: "/admin",
     display: false,
     exact: false

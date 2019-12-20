@@ -35,6 +35,11 @@ class SellingBill extends React.Component {
     this.state.getUserRole();
   }
 
+  onAddClickHandle(){
+    const { history } = this.props;
+    history.push(this.props.match.path + `/add`);
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       perPage: nextProps.perPage,
