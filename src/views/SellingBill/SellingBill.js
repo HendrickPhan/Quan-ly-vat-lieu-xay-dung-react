@@ -211,7 +211,7 @@ class SellingBillForm extends React.Component {
         }
         break;
       case 2:
-        if(this.state.currentCustomer){
+        if(this.state.currentCustomer !== null){
           let nextStep = this.state.step + 1;
           this.setState({step: nextStep});
           this.calTotalBill();
@@ -246,6 +246,7 @@ class SellingBillForm extends React.Component {
     if (this.props.error) {
       alert(this.props.error);
     }   
+    console.log('ste 2', this.state.sellingBillDetail)
     switch(this.state.step){
       case 2:
         return (

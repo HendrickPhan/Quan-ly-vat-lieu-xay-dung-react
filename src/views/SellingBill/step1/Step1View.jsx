@@ -159,7 +159,7 @@ export default function Step1View(props) {
                                             Giá: <b>{product.price}</b>
                                         </Typography>
                                         <Typography variant="body1"  component="p">
-                                            Còn lại: <b>{product.agency_product ? product.agency_product : 0}</b>
+                                            Còn lại: <b>{product.agency_product ? product.agency_product.quantity : 0}</b>
                                         </Typography>
                                     </CardContent>
                                 </CardActionArea>
@@ -193,7 +193,7 @@ export default function Step1View(props) {
                     <Box m={1}>
                         <IconButton aria-label="cart">
                         <StyledBadge1 
-                            badgeContent = { props.sellingBillDetail !== null ? props.sellingBillDetail.length : 0 } 
+                            badgeContent = { props.sellingBillDetail ? props.sellingBillDetail.length : 0 } 
                             color="primary"
                         >
                             <ShoppingCartIcon />

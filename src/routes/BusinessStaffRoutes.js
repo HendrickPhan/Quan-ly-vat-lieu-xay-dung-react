@@ -46,7 +46,7 @@ const dashboardRoutes = [
     path: "/dashboard",
     name: "Dashboard",
     icon: Dashboard,
-    component: DashboardPage,
+    component: SellingBillList,
     layout: "/admin"
   },
   {
@@ -121,6 +121,8 @@ const dashboardRoutes = [
     display: false,
     exact: true
   },
+
+ 
 ];
 
 export default dashboardRoutes;

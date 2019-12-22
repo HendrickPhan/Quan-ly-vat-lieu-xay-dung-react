@@ -84,6 +84,7 @@ const billStyles = makeStyles(theme => ({
 }));
 
 export default function SellingBillDetailView(props) {
+  console.log('staff', props);
     const classes = billStyles();
     const userRole = getUserRole();
     const tableOption = {
@@ -371,16 +372,7 @@ export default function SellingBillDetailView(props) {
                     <TableCell align="right">{row.quantity * row.unit_price}</TableCell>
                   </TableRow>
                 ))}
-                 {/* <TableRow>
-                    <TableCell component="th" scope="row">
-                    </TableCell>
-                    <TableCell align="right" className={classes.color_red}>Thuế VAT</TableCell>
-                    <TableCell align="right">%</TableCell>
-                    <TableCell align="right"></TableCell>
-                    <TableCell align="right"></TableCell>
-                    <TableCell align="right">{ props.totalBill/110*100 }</TableCell>
-                  </TableRow> */}
-    
+              
                   <TableRow>
                     <TableCell component="th" scope="row">
                     </TableCell>

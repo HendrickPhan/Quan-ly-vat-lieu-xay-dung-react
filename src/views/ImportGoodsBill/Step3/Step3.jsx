@@ -82,8 +82,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Step3FormView(props) {
-    const classes = useStyles();
-    console.log('customer view 3', props);    
+    const classes = useStyles();  
     return (
       <Paper className={classes.root}>
         <InputLabel id="categories-select-label">Xác nhận hóa đơn</InputLabel>
