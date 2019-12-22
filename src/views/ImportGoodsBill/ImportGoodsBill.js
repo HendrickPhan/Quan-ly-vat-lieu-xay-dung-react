@@ -111,8 +111,17 @@ class ImportBillForm extends React.Component {
   }
 
   handleAddProduct = (e, product) => {
-    let newProduct = product;
-    this.props.importBillDetail.push(newProduct);
+    // let newProduct = product;
+    // this.props.importBillDetail.push(newProduct);
+    // this.forceUpdate();
+    let flag = false;
+    this.props.importBillDetail.forEach(function myFunction(item, index) {
+      if(item.id === product.id){
+        flag = true;
+      }
+    }); 
+    if(!flag)
+      this.props.importBillDetail.push(product);
     this.forceUpdate();
   }
 
@@ -186,9 +195,11 @@ class ImportBillForm extends React.Component {
         }
         break;
       case 2:
-          let nextStep = this.state.step + 1;
-          this.setState({step: nextStep});
-          this.calTotalBill();
+          if(!this.vendor_id){
+            let nextStep = this.state.step + 1;
+            this.setState({step: nextStep});
+            this.calTotalBill();
+          }
         break;
     }
   }

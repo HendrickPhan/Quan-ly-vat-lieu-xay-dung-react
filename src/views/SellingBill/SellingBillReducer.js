@@ -17,7 +17,7 @@ import {
     products: [],
     categories: [],
     customers: [],
-    currentCustomer: {},
+    currentCustomer: null,
     currentCategory: {},
     productListCurrentPage: 1,
     productListTotalRows: 0,

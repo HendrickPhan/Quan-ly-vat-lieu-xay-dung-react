@@ -21,18 +21,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import Carousel from 'react-bootstrap/Carousel'
-
-import Snackbar from "../../../components/Snackbar/Snackbar.js";
-import ImageList from "../../../components/ImageList/ImageList.js";
-
 const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(3, 2),
@@ -80,7 +68,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Step3FormView(props) {
     const classes = useStyles();
-    console.log('customer view 3', props);    
     return (
       <Paper className={classes.root}>
         <Grid item xs={12} sm={12}>
